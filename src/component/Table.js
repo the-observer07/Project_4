@@ -11,7 +11,9 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import "../fonts.css";
 import { Typography } from "@mui/material";
-import { Button } from "@mui/material";
+import { Button, Box } from "@mui/material";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import IconButton from "@mui/material/IconButton";
 
 const TableData = () => {
     const [tokens, setTokens] = useState([]);
@@ -47,51 +49,12 @@ const TableData = () => {
                             <TableHead>
                                 <TableRow>
                                     <TableCell></TableCell>
-                                    <TableCell
-                                        style={{
-                                            color: "black",
-                                            fontWeight: "700",
-                                            variant: "h2",
-                                            margin: 30,
-                                            fontFamily: "Roboto",
-                                        }}
-                                    >
-                                        Token
-                                    </TableCell>
-                                    <TableCell
-                                        align="right"
-                                        style={{
-                                            color: "black",
-                                            fontWeight: "700",
-                                            variant: "h2",
-                                            margin: 30,
-                                            fontFamily: "Roboto",
-                                        }}
-                                    >
-                                        Price
-                                    </TableCell>
-                                    <TableCell
-                                        align="right"
-                                        style={{
-                                            color: "black",
-                                            fontWeight: "700",
-                                            variant: "h2",
-                                            margin: 30,
-                                            fontFamily: "Roboto",
-                                        }}
-                                    >
+                                    <TableCell>Token</TableCell>
+                                    <TableCell align="right">Price</TableCell>
+                                    <TableCell align="right">
                                         Market Cap
                                     </TableCell>
-                                    <TableCell
-                                        align="right"
-                                        style={{
-                                            color: "black",
-                                            fontWeight: "700",
-                                            variant: "h2",
-                                            margin: 30,
-                                            fontFamily: "Roboto",
-                                        }}
-                                    >
+                                    <TableCell align="right">
                                         % Change
                                     </TableCell>
                                     <TableCell></TableCell>
@@ -109,31 +72,55 @@ const TableData = () => {
                                         }}
                                     >
                                         <TableCell align="right">
-                                            {<img src="token.image" alt="" />}
+                                            <Box
+                                                component="img"
+                                                sx={{
+                                                    height: 25,
+                                                    width: 25,
+                                                    maxHeight: {
+                                                        xs: 233,
+                                                        md: 167,
+                                                    },
+                                                    maxWidth: {
+                                                        xs: 350,
+                                                        md: 250,
+                                                    },
+                                                }}
+                                                alt=""
+                                                src={`${token.image}`}
+                                            />
                                         </TableCell>
                                         <TableCell component="th" scope="row">
                                             {token.name}
                                         </TableCell>
                                         <TableCell align="right">
-                                            {`$ ${token.current_price}`}
+                                            {`$ ${parseFloat(
+                                                token.current_price
+                                            ).toFixed(2)}`}
                                         </TableCell>
                                         <TableCell align="right">
-                                            {`$ ${token.market_cap}`}
+                                            {`$ ${parseFloat(
+                                                token.market_cap
+                                            ).toLocaleString("en-US")}`}
                                         </TableCell>
                                         <TableCell align="right">
-                                            {
+                                            {` ${parseFloat(
                                                 token.market_cap_change_percentage_24h
-                                            }
+                                            ).toFixed(2)}`}
                                         </TableCell>
-                                        {loggedIn === "true" ? (
-                                            <div></div>
-                                        ) : (
-                                            <TableCell align="right">
-                                                <Button variant="contained">
-                                                    Add to watchlist
-                                                </Button>
-                                            </TableCell>
-                                        )}
+
+                                        <TableCell align="right">
+                                            <IconButton
+                                                color="primary"
+                                                aria-label="add to shopping cart"
+                                                sx={{
+                                                    height: 30,
+                                                    width: 30,
+                                                }}
+                                            >
+                                                <StarBorderIcon />
+                                            </IconButton>
+                                        </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>

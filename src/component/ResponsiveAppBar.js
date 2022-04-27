@@ -12,6 +12,8 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
+import LogInButton from "../component/LogInButton";
+import SignUpButton from "../component/SignUpButton";
 
 const pages = ["Watchlist", "Portfolio"];
 const settings = ["Profile", "Preferences", "Logout"];
@@ -36,6 +38,8 @@ const ResponsiveAppBar = () => {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const handleLogIn = () => {};
 
     return (
         <AppBar position="static" sx={{ bgcolor: "#16181f" }}>
@@ -169,8 +173,8 @@ const ResponsiveAppBar = () => {
                         </div>
                     ) : (
                         <div>
-                            <Button variant="contained"> Log In </Button>
-                            <Button variant="contained"> Sign Up </Button>
+                            <LogInButton />
+                            <SignUpButton />
                         </div>
                     )}
                 </Toolbar>
