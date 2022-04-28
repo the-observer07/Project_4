@@ -30,8 +30,11 @@ const addNewPortfolio = async (body) => {
     // console.log(response);
     return res;
 };
-const removePortfolio = async () => {
-    const res = await axios.delete(localHost + "/portfolio/removeentry");
+const removePortfolio = async (body) => {
+    console.log(`backendAPI ${body}`);
+    const res = await axios.post(localHost + "/portfolio/removeentry", {
+        token: body,
+    });
     console.log("Removed Entry", res);
     return res;
 };

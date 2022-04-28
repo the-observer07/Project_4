@@ -47,8 +47,11 @@ const PortfolioTable = () => {
         callForPortfolio();
     }, [portfolioRedux]);
 
-    const handleDelete = async () => {
-        const res = await backendAPIs.removePortfolio();
+    const handleDelete = async (e) => {
+        // console.log(value);
+        const token = e.currentTarget.value;
+        console.log(token);
+        const res = await backendAPIs.removePortfolio(token);
     };
 
     return (
@@ -101,6 +104,7 @@ const PortfolioTable = () => {
                                         </TableCell>
                                         <TableCell sx={{ width: 120 }}>
                                             <IconButton
+                                                value={portfolio.token}
                                                 color="primary"
                                                 aria-label="Edit button"
                                                 sx={{
@@ -111,6 +115,7 @@ const PortfolioTable = () => {
                                                 <EditIcon />
                                             </IconButton>
                                             <IconButton
+                                                value={portfolio.token}
                                                 color="primary"
                                                 aria-label="Edit button"
                                                 sx={{
