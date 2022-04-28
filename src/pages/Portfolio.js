@@ -9,8 +9,9 @@ const Portfolio = () => {
     return (
         <div>
             <ResponsiveAppBar />
-            <PortfolioForm />
+
             <div className="container">
+                <PortfolioForm />
                 <PortfolioTable />
             </div>
         </div>

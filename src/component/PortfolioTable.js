@@ -26,9 +26,10 @@ const PortfolioTable = () => {
     // const [apiData, setApiData] = useState();
 
     const callForPortfolio = async () => {
-        backendAPIs.pullPortfolio().then((res) => {
-            console.log(res.data);
+        await backendAPIs.pullPortfolio().then((res) => {
+            // res.data.map ((element, index) =>)
             setPortfolio(res.data);
+            console.log(res.data);
         });
 
         // const callForTokenList = await axios.get(tokenList());
