@@ -13,6 +13,14 @@ const Home = () => {
             <DataTicker />
             <br />
             <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
             <div className="container">
                 <Table />
             </div>

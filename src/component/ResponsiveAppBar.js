@@ -173,8 +173,12 @@ const ResponsiveAppBar = () => {
                         </div>
                     ) : (
                         <div>
-                            <LogInButton />
-                            <SignUpButton />
+                            <Button variant="contained" href="/signup">
+                                Login
+                            </Button>
+                            <Button variant="contained" href="/signup">
+                                Sign Up
+                            </Button>
                         </div>
                     )}
                 </Toolbar>

@@ -17,6 +17,8 @@ import IconButton from "@mui/material/IconButton";
 
 const TableData = () => {
     const [tokens, setTokens] = useState([]);
+    const topTen = tokens.filter((element, index) => index < 10);
+    console.log(topTen);
     // const [Pending, setPending] = useState();
 
     const getData = async () => {
@@ -61,7 +63,7 @@ const TableData = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {tokens.map((token) => (
+                                {topTen.map((token) => (
                                     <TableRow
                                         key={token.name}
                                         sx={{
