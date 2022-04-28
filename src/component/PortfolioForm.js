@@ -4,37 +4,48 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import backendAPIs from "../utils/backendAPIs";
 import { useState } from "react";
-import axios from "axios";
-import qs from "qs";
+import { useSelector, useDispatch } from "react-redux";
+import portfolioSlice, { portfolioActions } from "../redux/portfolioSlice";
 
 // import store from "./app/store";
 // import { Provider } from "react-redux";
 
 export default function HelperTextMisaligned() {
     // const [data, setData] = useState("");
+    const dispatch = useDispatch();
+    const portfolio = useSelector((state) => state.portfolio);
+    console.log(portfolio);
     const [loading, setLoading] = useState(false);
     const [token, setToken] = useState("");
     const [price, setPrice] = useState("");
     const [qty, setQty] = useState("");
 
+    const randomObj = { one: 1, two: 2, three: 3 };
+
     const handleIdChange = (event) => {
-        setToken(event.target.value);
-        console.log(`id = ${event.target.value}`);
+        // setToken(event.target.value);
+        // console.log(`id = ${event.target.value}`);
+        // dispatch(portfolioActions.setToken(event.target.value));
+        dispatch(portfolioActions.setToken(event.target.value));
     };
 
     const handlePriceChange = (event) => {
-        setPrice(event.target.value);
-        console.log(`price = ${event.target.value}`);
+        // setPrice(event.target.value);
+        // console.log(`price = ${event.target.value}`);
+        dispatch(portfolioActions.setPrice(event.target.value));
     };
 
     const handleQtyChange = (event) => {
-        setQty(event.target.value);
-        console.log(`qty = ${event.target.value}`);
+        // setQty(event.target.value);
+        // console.log(`qty = ${event.target.value}`);
+        dispatch(portfolioActions.setQty(event.target.value));
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
         setLoading(true);
+        // dispatch(portfolioActions.handleSubmit(true));
+
         // let formData = new FormData();
         // formData.append("token", token);
         // formData.append("price", price);
@@ -42,35 +53,20 @@ export default function HelperTextMisaligned() {
         // console.log(token, price, qty);
 
         const data = {
-            token,
-            price,
-            quantity: qty,
+            token: portfolio.token,
+            price: portfolio.price,
+            quantity: portfolio.qty,
         };
+
+        console.log(data);
 
         // console.log("formData", qs.stringify(formData));
 
         // console.log(formData.getAll("price", "quantity"));
 
-        backendAPIs.addNewPortfolio(data).then((res) => {
-            setLoading(false);
-        });
-
-        // });
-        // axios({
-        //     method: "post",
-        //     url: `http://127.0.0.1:5001/portfolio/newentry`,
-        //     // data: qs.stringify(formData),
-        //     data: data,
-        //     headers: { "content-type": "application/json" },
-        // })
-        //     .then(function (response) {
-        //         //handle success
-        //         console.log(response);
-        //     })
-        //     .catch(function (response) {
-        //         //handle error
-        //         console.log(response);
-        //     });
+        backendAPIs.addNewPortfolio(data);
+        setLoading(false);
+        dispatch(portfolioActions.handleSubmit());
     };
 
     return (
@@ -83,6 +79,7 @@ export default function HelperTextMisaligned() {
             }}
         >
             <TextField
+                value={portfolio.token}
                 helperText="Please enter your token"
                 id="demo-helper-text-misaligned"
                 label="Token"
@@ -93,6 +90,7 @@ export default function HelperTextMisaligned() {
                 onChange={handleIdChange}
             />
             <TextField
+                value={portfolio.price}
                 helperText="Please enter your purchase price"
                 id="demo-helper-text-misaligned-no-helper"
                 label="Price"
@@ -103,6 +101,7 @@ export default function HelperTextMisaligned() {
                 onChange={handlePriceChange}
             />
             <TextField
+                value={portfolio.qty}
                 helperText="Please enter your purchase quantity"
                 id="demo-helper-text-misaligned-no-helper"
                 label="Qty"

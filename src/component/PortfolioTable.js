@@ -16,6 +16,8 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import IconButton from "@mui/material/IconButton";
 import backendAPIs from "../utils/backendAPIs";
 import EditIcon from "@mui/icons-material/Edit";
+import { useSelector } from "react-redux";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const PortfolioTable = () => {
     // const [tokens, setTokens] = useState([]);
@@ -26,23 +28,29 @@ const PortfolioTable = () => {
     // const [apiData, setApiData] = useState();
 
     const callForPortfolio = async () => {
-        await backendAPIs.pullPortfolio().then((res) => {
-            // res.data.map ((element, index) =>)
-            setPortfolio(res.data);
-            console.log(res.data);
-        });
-
-        // const callForTokenList = await axios.get(tokenList());
-
-        // setTokens(callForTokenList.data);
-
-        // console.log(callForTokenList);
+        // console.log(backendAPIs);
+        const res = await backendAPIs.pullPortfolio();
+        // console.log(res.data.data);
+        setPortfolio(res.data.data);
     };
+    // console.log("API Call");
+    // const res = await axios.get("http://127.0.0.1:5001/portfolio/pull");
+    // console.log("API Called");
+    // console.log(res);
+    // console.log(res.data.data);
+    // setPortfolio(res.data.data);
     console.log(portfolio);
+
+    const portfolioRedux = useSelector((state) => state.portfolio);
 
     useEffect(() => {
         callForPortfolio();
-    }, []);
+    }, [portfolioRedux]);
+
+    const handleDelete = async () => {
+        const res = await backendAPIs.removePortfolio();
+    };
+
     return (
         <div>
             {/* {JSON.stringify(tokens)} */}
@@ -80,43 +88,38 @@ const PortfolioTable = () => {
                                                 },
                                         }}
                                     >
-                                        <TableCell align="right">
-                                            <Box
-                                                component="img"
-                                                sx={{
-                                                    height: 25,
-                                                    width: 25,
-                                                    maxHeight: {
-                                                        xs: 233,
-                                                        md: 167,
-                                                    },
-                                                    maxWidth: {
-                                                        xs: 350,
-                                                        md: 250,
-                                                    },
-                                                }}
-                                                alt=""
-                                                src={`${portfolio.price}`}
-                                            />
-                                        </TableCell>
                                         <TableCell component="th" scope="row">
-                                            {portfolio.name}
+                                            {portfolio.token}
                                         </TableCell>
                                         <TableCell align="right">
                                             {`$ ${parseFloat(
-                                                portfolio.quantity
+                                                portfolio.price
                                             ).toFixed(2)}`}
                                         </TableCell>
                                         <TableCell align="right">
+                                            {portfolio.quantity}
+                                        </TableCell>
+                                        <TableCell sx={{ width: 120 }}>
                                             <IconButton
                                                 color="primary"
-                                                aria-label="add to shopping cart"
+                                                aria-label="Edit button"
                                                 sx={{
                                                     height: 30,
                                                     width: 30,
                                                 }}
                                             >
                                                 <EditIcon />
+                                            </IconButton>
+                                            <IconButton
+                                                color="primary"
+                                                aria-label="Edit button"
+                                                sx={{
+                                                    height: 30,
+                                                    width: 30,
+                                                }}
+                                                onClick={handleDelete}
+                                            >
+                                                <DeleteIcon />
                                             </IconButton>
                                         </TableCell>
                                     </TableRow>

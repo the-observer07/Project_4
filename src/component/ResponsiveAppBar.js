@@ -15,7 +15,7 @@ import { useState } from "react";
 import LogInButton from "../component/LogInButton";
 import SignUpButton from "../component/SignUpButton";
 
-const pages = ["Watchlist", "Portfolio"];
+const pages = ["Home", "Watchlist", "Portfolio"];
 const settings = ["Profile", "Preferences", "Logout"];
 
 const ResponsiveAppBar = () => {

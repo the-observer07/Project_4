@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./user";
-import otherReducer from "./other";
+import portfolioReducer from "./portfolioSlice";
+// import otherReducer from "./other";
 
 const store = configureStore({
-    reducer: { user: userReducer, other: otherReducer },
+    reducer: { user: userReducer, portfolio: portfolioReducer },
 });
 
 export default store;
