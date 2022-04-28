@@ -4,6 +4,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import backendAPIs from "../utils/backendAPIs";
 import { useState } from "react";
+import axios from "axios";
+import qs from "qs";
 
 // import store from "./app/store";
 // import { Provider } from "react-redux";
@@ -11,12 +13,12 @@ import { useState } from "react";
 export default function HelperTextMisaligned() {
     // const [data, setData] = useState("");
     const [loading, setLoading] = useState(false);
-    const [id, setId] = useState("");
+    const [token, setToken] = useState("");
     const [price, setPrice] = useState("");
     const [qty, setQty] = useState("");
 
     const handleIdChange = (event) => {
-        setId(event.target.value);
+        setToken(event.target.value);
         console.log(`id = ${event.target.value}`);
     };
 
@@ -33,14 +35,42 @@ export default function HelperTextMisaligned() {
     const handleSubmit = (event) => {
         event.preventDefault();
         setLoading(true);
-        let formData = new FormData();
-        formData.append("id", id);
-        formData.append("price", price);
-        formData.append("quantity", qty);
-        console.log(id, price, qty);
-        backendAPIs.addNewPortfolio(formData).then((res) => {
+        // let formData = new FormData();
+        // formData.append("token", token);
+        // formData.append("price", price);
+        // formData.append("quantity", qty);
+        // console.log(token, price, qty);
+
+        const data = {
+            token,
+            price,
+            quantity: qty,
+        };
+
+        // console.log("formData", qs.stringify(formData));
+
+        // console.log(formData.getAll("price", "quantity"));
+
+        backendAPIs.addNewPortfolio(data).then((res) => {
             setLoading(false);
         });
+
+        // });
+        // axios({
+        //     method: "post",
+        //     url: `http://127.0.0.1:5001/portfolio/newentry`,
+        //     // data: qs.stringify(formData),
+        //     data: data,
+        //     headers: { "content-type": "application/json" },
+        // })
+        //     .then(function (response) {
+        //         //handle success
+        //         console.log(response);
+        //     })
+        //     .catch(function (response) {
+        //         //handle error
+        //         console.log(response);
+        //     });
     };
 
     return (
