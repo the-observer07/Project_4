@@ -1,7 +1,14 @@
 import React from "react";
+import ResponsiveAppBar from "../component/ResponsiveAppBar";
+import Watchlist from "../component/WatchList";
 
 const Watchlist = () => {
-    return <div>Watchlist</div>;
+    return (
+        <>
+            <ResponsiveAppBar />
+            <Watchlist />
+        </>
+    );
 };
 
 export default Watchlist;
