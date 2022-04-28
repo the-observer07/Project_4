@@ -4,15 +4,44 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import backendAPIs from "../utils/backendAPIs";
 import { useState } from "react";
+
 // import store from "./app/store";
 // import { Provider } from "react-redux";
 
 export default function HelperTextMisaligned() {
-    const [data, setData] = useState("");
-    const handleChange = (event) => {
-        console.log(event.target.value);
+    // const [data, setData] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [id, setId] = useState("");
+    const [price, setPrice] = useState("");
+    const [qty, setQty] = useState("");
+
+    const handleIdChange = (event) => {
+        setId(event.target.value);
+        console.log(`id = ${event.target.value}`);
     };
-    const handleSubmit = () => {};
+
+    const handlePriceChange = (event) => {
+        setPrice(event.target.value);
+        console.log(`price = ${event.target.value}`);
+    };
+
+    const handleQtyChange = (event) => {
+        setQty(event.target.value);
+        console.log(`qty = ${event.target.value}`);
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setLoading(true);
+        let formData = new FormData();
+        formData.append("id", id);
+        formData.append("price", price);
+        formData.append("quantity", qty);
+        console.log(id, price, qty);
+        backendAPIs.addNewPortfolio(formData).then((res) => {
+            setLoading(false);
+        });
+    };
 
     return (
         <Box
@@ -30,7 +59,8 @@ export default function HelperTextMisaligned() {
                 variant="filled"
                 color=""
                 focused
-                onChange={handleChange}
+                type="String"
+                onChange={handleIdChange}
             />
             <TextField
                 helperText="Please enter your purchase price"
@@ -39,7 +69,8 @@ export default function HelperTextMisaligned() {
                 variant="filled"
                 color=""
                 focused
-                onChange={handleChange}
+                type="Number"
+                onChange={handlePriceChange}
             />
             <TextField
                 helperText="Please enter your purchase quantity"
@@ -48,9 +79,10 @@ export default function HelperTextMisaligned() {
                 variant="filled"
                 color=""
                 focused
-                onChange={handleChange}
+                type="Number"
+                onChange={handleQtyChange}
             />
-            <Button variant="contained" onSubmit={handleSubmit}>
+            <Button variant="contained" onClick={handleSubmit}>
                 Submit
             </Button>
         </Box>

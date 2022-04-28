@@ -2,19 +2,20 @@ import axios from "axios";
 const loginUrl = "/users";
 const porfolioUrl = "/portfolio";
 const watchlistUrl = "/watchlist";
+const localHost = "http://127.0.0.1:5001";
 
-const login = async (body) => {
-    const response = await axios.post(loginUrl + "/login", body, {});
+const login = async () => {
+    const response = await axios.post(localHost + "/login");
     console.log(response);
 };
 
-const logout = async (id) => {
-    const response = await axios.get(loginUrl + "/logout" + id, {});
+const logout = async () => {
+    const response = await axios.get(localHost + "/logout");
     return response;
 };
 
-const createNewUser = async (id) => {
-    const response = await axios.post(loginUrl + "/newuser" + id, {});
+const createNewUser = async () => {
+    const response = await axios.post(localHost + "/newuser");
     return response;
 };
 
@@ -22,34 +23,31 @@ const createNewUser = async (id) => {
 //PORTFOLIO
 //
 
-const addNewPortfolio = async (coords) => {
-    const response = await axios.post(porfolioUrl + "/newentry");
+const addNewPortfolio = async (body) => {
+    const response = await axios.post(localHost + "/portfolio/newentry", body);
+    console.log(response);
     return response;
 };
-const removePortfolio = async (body) => {
-    const response = await axios.delete(porfolioUrl + "/removeentry");
+const removePortfolio = async () => {
+    const response = await axios.delete(localHost + "/portfolio/removeentry");
     console.log("Removed Entry", response);
     return response;
 };
 
-const editPortFolio = async (body) => {
-    await axios.patch(porfolioUrl + "/entryupdate", body);
+const editPortFolio = async () => {
+    await axios.patch(localHost + "/portfolio/entryupdate");
 };
 
 //
 //WATCHLIST
 //
 
-const addWatchlist = async (id) => {
-    await axios.post(watchlistUrl + "/newwatch/" + id, {
-        withCredentials: true,
-    });
+const addWatchlist = async () => {
+    await axios.post(localHost + "/watchlist/newwatch");
 };
 
-const removeWatchlist = async (body) => {
-    await axios.delete(watchlistUrl + "/removewatch", body, {
-        withCredentials: true,
-    });
+const removeWatchlist = async () => {
+    await axios.delete(localHost + "/watchlist/removewatch");
 };
 
 const apiCalls = {

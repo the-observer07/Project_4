@@ -8,6 +8,7 @@ import User from "./pages/User";
 import SignUp from "./pages/SignUp";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
+import Watchlist from "./pages/Watchlist";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/user" element={<User />} />
                 <Route path="/portfolio" element={<Portfolio />} />
+                <Route path="/watchlist" element={<Watchlist />} />
             </Routes>
         </BrowserRouter>
     );

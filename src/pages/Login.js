@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, TextField, Box, Button } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../redux/user";
 
-const [username, setUsername] = setState("");
-const [password, setPassword] = setState("");
-
-const handleUsernameChange = () => {
-    set;
-};
-
 const Login = () => {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleUsernameChange = (event) => {
+        setUsername(event);
+    };
+
+    const handlePasswordChange = (event) => {
+        setPassword(event);
+    };
+
     return (
         <>
             <Container>
