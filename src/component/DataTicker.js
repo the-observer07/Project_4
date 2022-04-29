@@ -19,7 +19,7 @@ const DataTicker = () => {
     }, []);
 
     const fetchCryptoAPI = async () => {
-        const percentageChange = false;
+        const percentageChange = "";
 
         const res = await fetch(cryptoApiTicker);
         const rawData = await res.json();
@@ -36,8 +36,8 @@ const DataTicker = () => {
                     id={index}
                     change={
                         percentageChange
-                            ? element.price_change_percentage_24h > 0
-                            : element.price_change_percentage_24h < 0
+                            ? element.price_change_percentage_24h < 0
+                            : element.price_change_percentage_24h > 0
                     }
                     symbol={element.symbol} // to upper case it...
                     lastPrice={`${parseFloat(element.high_24h).toFixed(2)}`}
