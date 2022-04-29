@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 import LogInButton from "../component/LogInButton";
 import SignUpButton from "../component/SignUpButton";
+import { Link } from "react-router-dom";
 
 const pages = ["Home", "Watchlist", "Portfolio"];
 const settings = ["Profile", "Preferences", "Logout"];
@@ -94,7 +95,15 @@ const ResponsiveAppBar = () => {
                                     onClick={handleCloseNavMenu}
                                 >
                                     <Typography textAlign="center">
-                                        {page}
+                                        <Link
+                                            style={{
+                                                textDecoration: "none",
+                                                color: "white",
+                                            }}
+                                            to={`/${page}`}
+                                        >
+                                            {page}
+                                        </Link>
                                     </Typography>
                                 </MenuItem>
                             ))}
@@ -123,7 +132,15 @@ const ResponsiveAppBar = () => {
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: "white", display: "block" }}
                             >
-                                {page}
+                                <Link
+                                    style={{
+                                        textDecoration: "none",
+                                        color: "white",
+                                    }}
+                                    to={`/${page}`}
+                                >
+                                    {page}
+                                </Link>
                             </Button>
                         ))}
                     </Box>

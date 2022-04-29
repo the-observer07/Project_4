@@ -16,8 +16,9 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import IconButton from "@mui/material/IconButton";
 import backendAPIs from "../utils/backendAPIs";
 import EditIcon from "@mui/icons-material/Edit";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
+import portfolioSlice, { portfolioActions } from "../redux/portfolioSlice";
 
 const PortfolioTable = () => {
     // const [tokens, setTokens] = useState([]);
@@ -26,6 +27,9 @@ const PortfolioTable = () => {
     // const [Pending, setPending] = useState();
     const [portfolio, setPortfolio] = useState([]);
     // const [apiData, setApiData] = useState();
+    const dispatch = useDispatch();
+    const portfolioDelete = useSelector((state) => state.portfolio);
+    console.log(portfolio);
 
     const callForPortfolio = async () => {
         // console.log(backendAPIs);
@@ -52,6 +56,18 @@ const PortfolioTable = () => {
         const token = e.currentTarget.value;
         console.log(token);
         const res = await backendAPIs.removePortfolio(token);
+        dispatch(portfolioActions.setDelete(e));
+        dispatch(portfolioActions.handleReset());
+    };
+
+    const handleEdit = async (e) => {
+        const token = e.currentTarget.value;
+        console.log(token);
+        const res = await backendAPIs.editPortfolio(token);
+        console.log(res.data); // -> to take res.data and print it in the input fields for editing
+        console.log(res.data.editedEntry.token);
+        console.log(res.data.editedEntry.price);
+        console.log(res.data.editedEntry.quantity);
     };
 
     return (
@@ -111,13 +127,14 @@ const PortfolioTable = () => {
                                                     height: 30,
                                                     width: 30,
                                                 }}
+                                                onClick={handleEdit}
                                             >
                                                 <EditIcon />
                                             </IconButton>
                                             <IconButton
                                                 value={portfolio.token}
                                                 color="primary"
-                                                aria-label="Edit button"
+                                                aria-label="Del button"
                                                 sx={{
                                                     height: 30,
                                                     width: 30,

@@ -16,9 +16,9 @@ export default function HelperTextMisaligned() {
     const portfolio = useSelector((state) => state.portfolio);
     console.log(portfolio);
     const [loading, setLoading] = useState(false);
-    const [token, setToken] = useState("");
-    const [price, setPrice] = useState("");
-    const [qty, setQty] = useState("");
+    // const [token, setToken] = useState("");
+    // const [price, setPrice] = useState("");
+    // const [qty, setQty] = useState("");
 
     const randomObj = { one: 1, two: 2, three: 3 };
 

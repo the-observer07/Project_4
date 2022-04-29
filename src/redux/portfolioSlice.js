@@ -2,7 +2,7 @@ import { createSlice, configureStore } from "@reduxjs/toolkit";
 
 const portfolioSlice = createSlice({
     name: "portfolio",
-    initialState: { submission: "", token: "", price: "", qty: "" },
+    initialState: { delete: "", token: "", price: "", qty: "" },
     reducers: {
         setToken: (state, action) => {
             // console.log(state.token, action.payload);
@@ -21,6 +21,12 @@ const portfolioSlice = createSlice({
             state.token = "";
             state.price = "";
             state.qty = "";
+        },
+        setDelete: (state, action) => {
+            state.delete = action.payload;
+        },
+        handleReset: (state, action) => {
+            state.delete = "";
         },
     },
 });

@@ -39,8 +39,10 @@ const removePortfolio = async (body) => {
     return res;
 };
 
-const editPortfolio = async () => {
-    const res = await axios.patch(localHost + "/portfolio/entryupdate");
+const editPortfolio = async (body) => {
+    const res = await axios.post(localHost + "/portfolio/entryupdate", {
+        token: body,
+    });
     return res;
 };
 
