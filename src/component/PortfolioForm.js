@@ -20,7 +20,7 @@ export default function HelperTextMisaligned() {
     // const [price, setPrice] = useState("");
     // const [qty, setQty] = useState("");
 
-    const randomObj = { one: 1, two: 2, three: 3 };
+    // const randomObj = { one: 1, two: 2, three: 3 };
 
     const handleIdChange = (event) => {
         // setToken(event.target.value);
@@ -79,7 +79,11 @@ export default function HelperTextMisaligned() {
             }}
         >
             <TextField
-                value={portfolio.token}
+                value={
+                    portfolioSlice.editMode
+                        ? portfolioSlice.recalledTokens.recalledToken
+                        : portfolio.token
+                }
                 helperText="Please enter your token"
                 id="demo-helper-text-misaligned"
                 label="Token"

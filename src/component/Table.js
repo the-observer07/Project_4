@@ -14,34 +14,51 @@ import { Typography } from "@mui/material";
 import { Button, Box } from "@mui/material";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import IconButton from "@mui/material/IconButton";
+import watchlistSlice, { watchlistActions } from "../redux/watchlistSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { singleToken } from "../utils/coingeckoAPICalls";
 
 const TableData = () => {
     const [tokens, setTokens] = useState([]);
     const topTen = tokens.filter((element, index) => index < 10);
-    console.log(topTen);
+    // console.log(topTen);
     // const [Pending, setPending] = useState();
+    const dispatch = useDispatch();
+    const [faves, setFaves] = useState();
+
+    const portfolioRedux = useSelector((state) => state.portfolio);
 
     const getData = async () => {
         const callForTokenList = await axios.get(tokenList());
 
         setTokens(callForTokenList.data);
 
-        console.log(callForTokenList);
+        // console.log(callForTokenList);
     };
 
     useEffect(() => {
         getData();
     }, []);
+
+    const handleAddToFavs = async (e) => {
+        const token = e.currentTarget.value;
+        console.log(token);
+        //send token to redux
+        const res = await axios.get(singleToken(token));
+        setFaves(res.data); // -> should be redux state
+        console.log(res.data);
+        // dispatch(watchlistActions.setToken());
+    };
+
     return (
         <div>
             {/* {JSON.stringify(tokens)} */}
             <div className="int-container">
                 <div className="holder">
-                    <br />
                     {/* <h2 className="header">
                         Cryptocurrency Tokens by Market Cap
                     </h2> */}
-                    <br />
+                    <h1 style={{ color: "white", align: "" }}>Crypto Whale </h1>
                     <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 350 }} aria-label="simple table">
                             <Typography
@@ -113,12 +130,14 @@ const TableData = () => {
 
                                         <TableCell align="right">
                                             <IconButton
+                                                value={token.id}
                                                 color="primary"
                                                 aria-label="add to shopping cart"
                                                 sx={{
                                                     height: 30,
                                                     width: 30,
                                                 }}
+                                                onClick={handleAddToFavs}
                                             >
                                                 <StarBorderIcon />
                                             </IconButton>

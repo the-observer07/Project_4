@@ -12,15 +12,6 @@ const Home = () => {
             <ResponsiveAppBar />
             <DataTicker />
             <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
             <div className="container">
                 <Table />
             </div>

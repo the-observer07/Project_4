@@ -2,99 +2,99 @@
 @import "react-widgets/styles.css";
 
 .result {
-  color: white;
+    color: white;
 }
 
 .container {
-  width: 65%;
-  /* background-color: rgba(255, 255, 255, 0.3); */
-  /* border: 7px solid #ffffff; */
-  text-align: left;
+    width: 65%;
+    /* background-color: rgba(255, 255, 255, 0.3); */
+    /* border: 7px solid #ffffff; */
+    text-align: left;
 }
 
 .value {
-  color: white;
-  /* padding: 10px; */
-  /* padding-left: 10px; */
-  /* align-items: center; */
-  /* justify-content: center; */
-  /* position: absolute; */
-  /* margin: -50px 0 0 -100px; */
-  /* position: absolute; */
-  text-align: left;
-  /* top: 50%; */
+    color: white;
+    /* padding: 10px; */
+    /* padding-left: 10px; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* position: absolute; */
+    /* margin: -50px 0 0 -100px; */
+    /* position: absolute; */
+    text-align: left;
+    /* top: 50%; */
 }
 
 .ext {
-  opacity: 50%;
+    opacity: 50%;
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html {
-  font-family: "Oxygen", sans-serif;
+    font-family: "Oxygen", sans-serif;
 }
 
 body {
-  /* margin: 0; */
-  background-color: rgb(22, 25, 35);
-  /* background-image: ;
+    /* margin: 0; */
+    background-color: rgb(22, 25, 35);
+    /* background-image: ;
   background-size: cover;
   background-position: center;
   background-position: top; */
-  /* position: absolute; */
-  /* opacity: 0.5; */
-  /* background-repeat: no-repeat; */
+    /* position: absolute; */
+    /* opacity: 0.5; */
+    /* background-repeat: no-repeat; */
 }
 
 body::after {
-  content: "";
-  background: url("https://i.redd.it/o1ij4fst96m51.jpg");
-  background-size: cover;
-  background-position: center;
-  background-position: top;
-  opacity: 0.3;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  z-index: -1;
+    content: "";
+    background: url("https://i.redd.it/o1ij4fst96m51.jpg");
+    background-size: cover;
+    background-position: center;
+    background-position: top;
+    opacity: 0.3;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
 }
 .header {
-  color: aliceblue;
-  text-align: center;
-  /* width: 100%; */
+    color: aliceblue;
+    text-align: center;
+    /* width: 100%; */
 }
 
 .holder {
-  background-color: rgb(22, 25, 35);
-  padding: 5px;
-  border: 7px solid #ffffff;
+    background-color: rgb(22, 25, 35);
+    padding: 5px;
+    border: 7px solid #ffffff;
 }
 
 .data {
-  color: aliceblue;
+    color: aliceblue;
 }
 
 .centered {
-  margin: 3rem auto;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    margin: 3rem auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
 }
 
 .newsticker {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }

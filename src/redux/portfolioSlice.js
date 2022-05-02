@@ -2,7 +2,16 @@ import { createSlice, configureStore } from "@reduxjs/toolkit";
 
 const portfolioSlice = createSlice({
     name: "portfolio",
-    initialState: { delete: "", token: "", price: "", qty: "" },
+    initialState: {
+        delete: "",
+        token: "",
+        price: "",
+        qty: "",
+        editMode: false,
+        recalledTokens: "",
+        // recalledPrice: "",
+        // reaclledQty: "",
+    },
     reducers: {
         setToken: (state, action) => {
             // console.log(state.token, action.payload);
@@ -28,6 +37,25 @@ const portfolioSlice = createSlice({
         handleReset: (state, action) => {
             state.delete = "";
         },
+        setEdit: (state, action) => {
+            state.editMode = action.payload;
+            console.log(state.editMode);
+        },
+        setRecall: (state, action) => {
+            console.log(action.payload);
+            state.recalledTokens = action.payload;
+
+            // console.log(state.recalledToken);
+        },
+
+        // setRecallPrice: (state, action) => {
+        //     state.recalledPrice = action.payload;
+        //     console.log(state.recalledPrice);
+        // },
+        // setRecallQty: (state, action) => {
+        //     state.reacalledQty = action.payload;
+        //     console.log(state.reacalledQty);
+        // },
     },
 });
 

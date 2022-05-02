@@ -19,6 +19,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useSelector, useDispatch } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
 import portfolioSlice, { portfolioActions } from "../redux/portfolioSlice";
+// import { AirlineSeatReclineNormalOutlined } from "@material-ui/icons";
 
 const PortfolioTable = () => {
     // const [tokens, setTokens] = useState([]);
@@ -27,6 +28,7 @@ const PortfolioTable = () => {
     // const [Pending, setPending] = useState();
     const [portfolio, setPortfolio] = useState([]);
     // const [apiData, setApiData] = useState();
+    // const [recallData, setRecallData] = useState([]);
     const dispatch = useDispatch();
     const portfolioDelete = useSelector((state) => state.portfolio);
     console.log(portfolio);
@@ -43,7 +45,7 @@ const PortfolioTable = () => {
     // console.log(res);
     // console.log(res.data.data);
     // setPortfolio(res.data.data);
-    console.log(portfolio);
+    // console.log(portfolio);
 
     const portfolioRedux = useSelector((state) => state.portfolio);
 
@@ -61,14 +63,28 @@ const PortfolioTable = () => {
     };
 
     const handleEdit = async (e) => {
+        dispatch(portfolioActions.setEdit(true));
         const token = e.currentTarget.value;
         console.log(token);
         const res = await backendAPIs.editPortfolio(token);
-        console.log(res.data); // -> to take res.data and print it in the input fields for editing
-        console.log(res.data.editedEntry.token);
-        console.log(res.data.editedEntry.price);
-        console.log(res.data.editedEntry.quantity);
+        dispatch(
+            portfolioActions.setRecall({
+                recalledToken: res.data.editedEntry.token,
+                recalledPrice: res.data.editedEntry.price,
+                reacalledQty: res.data.editedEntry.quantity,
+            })
+        );
+        // dispatch(portfolioActions.setRecallprice(res.data.editedEntry.price));
+        // dispatch(portfolioActions.setRecallqty(res.data.editedEntry.qty));
+
+        // console.log(res.data); // -> to take res.data and print it in the input fields for editing
+        // console.log(res.data.editedEntry.token);
+        // console.log(res.data.editedEntry.price);
+        // console.log(res.data.editedEntry.quantity);
+        // console.log();
     };
+
+    console.log(portfolioRedux);
 
     return (
         <div>
