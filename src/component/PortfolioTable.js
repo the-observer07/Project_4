@@ -31,7 +31,7 @@ const PortfolioTable = () => {
     // const [recallData, setRecallData] = useState([]);
     const dispatch = useDispatch();
     const portfolioDelete = useSelector((state) => state.portfolio);
-    console.log(portfolio);
+    // console.log(portfolio);
 
     const callForPortfolio = async () => {
         // console.log(backendAPIs);
@@ -71,17 +71,11 @@ const PortfolioTable = () => {
             portfolioActions.setRecall({
                 recalledToken: res.data.editedEntry.token,
                 recalledPrice: res.data.editedEntry.price,
-                reacalledQty: res.data.editedEntry.quantity,
+                recalledQty: res.data.editedEntry.quantity,
             })
-        );
-        // dispatch(portfolioActions.setRecallprice(res.data.editedEntry.price));
-        // dispatch(portfolioActions.setRecallqty(res.data.editedEntry.qty));
 
-        // console.log(res.data); // -> to take res.data and print it in the input fields for editing
-        // console.log(res.data.editedEntry.token);
-        // console.log(res.data.editedEntry.price);
-        // console.log(res.data.editedEntry.quantity);
-        // console.log();
+            // need to refresh form and update table
+        );
     };
 
     console.log(portfolioRedux);
@@ -104,10 +98,35 @@ const PortfolioTable = () => {
                             ></Typography>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Token</TableCell>
-                                    <TableCell align="right">Price</TableCell>
-                                    <TableCell align="right">
+                                    <TableCell
+                                        align="center"
+                                        sx={{ width: 100 }}
+                                    >
+                                        Token
+                                    </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        sx={{ width: 100 }}
+                                    >
+                                        Chart
+                                    </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        sx={{ width: 150 }}
+                                    >
+                                        Price
+                                    </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        sx={{ width: 120 }}
+                                    >
                                         Quantity
+                                    </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        sx={{ width: 100 }}
+                                    >
+                                        Current Price
                                     </TableCell>
                                     <TableCell></TableCell>
                                 </TableRow>
@@ -123,18 +142,35 @@ const PortfolioTable = () => {
                                                 },
                                         }}
                                     >
-                                        <TableCell component="th" scope="row">
+                                        <TableCell
+                                            component="th"
+                                            scope="row"
+                                            align="center"
+                                        >
                                             {portfolio.token}
                                         </TableCell>
-                                        <TableCell align="right">
+                                        <TableCell></TableCell>
+                                        <TableCell
+                                            align="center"
+                                            sx={{ width: 150 }}
+                                        >
                                             {`$ ${parseFloat(
                                                 portfolio.price
                                             ).toFixed(2)}`}
                                         </TableCell>
-                                        <TableCell align="right">
-                                            {portfolio.quantity}
+                                        <TableCell
+                                            align="center"
+                                            sx={{ width: 120 }}
+                                        >
+                                            {portfolio.quantity.toLocaleString(
+                                                "en-US"
+                                            )}
                                         </TableCell>
-                                        <TableCell sx={{ width: 120 }}>
+                                        <TableCell
+                                            align="center"
+                                            sx={{ width: 100 }}
+                                        ></TableCell>
+                                        <TableCell sx={{ width: 50 }}>
                                             <IconButton
                                                 value={portfolio.token}
                                                 color="primary"

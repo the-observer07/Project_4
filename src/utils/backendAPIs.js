@@ -55,8 +55,15 @@ const pullPortfolio = async () => {
 //WATCHLIST
 //
 
-const addWatchlist = async () => {
-    const res = await axios.post(localHost + "/watchlist/newwatch");
+const addWatchlist = async (body) => {
+    const res = await axios.post(localHost + "/watchlist/newwatch", {
+        token: body,
+    });
+    return res;
+};
+
+const callWatchlistData = async () => {
+    const res = await axios.get(localHost + "/watchlist/getwatch");
     return res;
 };
 
@@ -75,6 +82,7 @@ const apiCalls = {
     pullPortfolio,
     addWatchlist,
     removeWatchlist,
+    callWatchlistData,
 };
 
 export default apiCalls;

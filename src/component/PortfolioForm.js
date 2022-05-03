@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import backendAPIs from "../utils/backendAPIs";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import portfolioSlice, { portfolioActions } from "../redux/portfolioSlice";
 
@@ -16,6 +16,14 @@ export default function HelperTextMisaligned() {
     const portfolio = useSelector((state) => state.portfolio);
     console.log(portfolio);
     const [loading, setLoading] = useState(false);
+
+    const portfolioRedux = useSelector((state) => state.portfolio);
+
+    // const selector = useSelector((state) => state.portfolio);
+
+    // const checkEditMode = useSelector(portfolioSlice.editMode);
+    // console.log(checkEditMode);
+
     // const [token, setToken] = useState("");
     // const [price, setPrice] = useState("");
     // const [qty, setQty] = useState("");
@@ -69,6 +77,30 @@ export default function HelperTextMisaligned() {
         dispatch(portfolioActions.handleSubmit());
     };
 
+    const handleSubmitEdit = (event) => {
+        event.preventDefault();
+        setLoading(true);
+        const data = {
+            token: portfolio.token,
+            price: portfolio.price,
+            quantity: portfolio.qty,
+        };
+        backendAPIs.editPortfolio(data);
+        setLoading(false);
+        dispatch(portfolioActions.handleResetEdit());
+    };
+
+    // const callForPortfolio = async () => {
+    //     // console.log(backendAPIs);
+    //     const res = await backendAPIs.pullPortfolio();
+    //     // console.log(res.data.data);
+    //     // setPortfolio(res.data.data);
+    // };
+
+    // useEffect(() => {
+    //     callForPortfolio();
+    // }, [portfolioRedux]);
+
     return (
         <Box
             sx={{
@@ -78,46 +110,95 @@ export default function HelperTextMisaligned() {
                 "& > :not(style)": { m: 1 },
             }}
         >
-            <TextField
-                value={
-                    portfolioSlice.editMode
-                        ? portfolioSlice.recalledTokens.recalledToken
-                        : portfolio.token
-                }
-                helperText="Please enter your token"
-                id="demo-helper-text-misaligned"
-                label="Token"
-                variant="filled"
-                color=""
-                focused
-                type="String"
-                onChange={handleIdChange}
-            />
-            <TextField
-                value={portfolio.price}
-                helperText="Please enter your purchase price"
-                id="demo-helper-text-misaligned-no-helper"
-                label="Price"
-                variant="filled"
-                color=""
-                focused
-                type="Number"
-                onChange={handlePriceChange}
-            />
-            <TextField
-                value={portfolio.qty}
-                helperText="Please enter your purchase quantity"
-                id="demo-helper-text-misaligned-no-helper"
-                label="Qty"
-                variant="filled"
-                color=""
-                focused
-                type="Number"
-                onChange={handleQtyChange}
-            />
-            <Button variant="contained" onClick={handleSubmit}>
-                Submit
-            </Button>
+            {portfolioRedux.editMode === true ? (
+                <div align="center">
+                    <TextField
+                        value={portfolioRedux.recalledTokens.recalledToken}
+                        helperText="Please enter your token"
+                        id="demo-helper-text-misaligned"
+                        label="Token"
+                        variant="filled"
+                        color=""
+                        focused
+                        type="String"
+                        onChange={handleIdChange}
+                        sx={{ margin: 1.5 }}
+                    />
+                    <TextField
+                        value={portfolioRedux.recalledTokens.recalledPrice}
+                        helperText="Please enter your purchase price"
+                        id="demo-helper-text-misaligned-no-helper"
+                        label="Price"
+                        variant="filled"
+                        color=""
+                        focused
+                        type="Number"
+                        onChange={handlePriceChange}
+                        sx={{ margin: 1.5 }}
+                    />
+                    <TextField
+                        value={portfolioRedux.recalledTokens.recalledQty}
+                        helperText="Please enter your purchase quantity"
+                        id="demo-helper-text-misaligned-no-helper"
+                        label="Qty"
+                        variant="filled"
+                        color=""
+                        focused
+                        type="Number"
+                        onChange={handleQtyChange}
+                        sx={{ margin: 1.5 }}
+                    />
+                </div>
+            ) : (
+                <div>
+                    <TextField
+                        value={portfolio.token}
+                        helperText="Please enter your token"
+                        id="demo-helper-text-misaligned"
+                        label="Token"
+                        variant="filled"
+                        color=""
+                        focused
+                        type="String"
+                        onChange={handleIdChange}
+                        sx={{ margin: 1.5 }}
+                    />
+                    <TextField
+                        value={portfolio.price}
+                        helperText="Please enter your purchase price"
+                        id="demo-helper-text-misaligned-no-helper"
+                        label="Price"
+                        variant="filled"
+                        color=""
+                        focused
+                        type="Number"
+                        onChange={handlePriceChange}
+                        sx={{ margin: 1.5 }}
+                    />
+                    <TextField
+                        value={portfolio.qty}
+                        helperText="Please enter your purchase quantity"
+                        id="demo-helper-text-misaligned-no-helper"
+                        label="Qty"
+                        variant="filled"
+                        color=""
+                        focused
+                        type="Number"
+                        onChange={handleQtyChange}
+                        sx={{ margin: 1.5 }}
+                    />
+                </div>
+            )}
+
+            {portfolioRedux.editMode === true ? (
+                <Button variant="contained" onClick={handleSubmitEdit}>
+                    Save
+                </Button>
+            ) : (
+                <Button variant="contained" onClick={handleSubmit}>
+                    Submit
+                </Button>
+            )}
         </Box>
     );
 }

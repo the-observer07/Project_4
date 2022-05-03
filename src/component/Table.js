@@ -17,6 +17,7 @@ import IconButton from "@mui/material/IconButton";
 import watchlistSlice, { watchlistActions } from "../redux/watchlistSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { singleToken } from "../utils/coingeckoAPICalls";
+import backendAPIs from "../utils/backendAPIs";
 
 const TableData = () => {
     const [tokens, setTokens] = useState([]);
@@ -24,10 +25,10 @@ const TableData = () => {
     // console.log(topTen);
     // const [Pending, setPending] = useState();
     const dispatch = useDispatch();
-    const [faves, setFaves] = useState();
+    const [faves, setFaves] = useState([]);
 
     const portfolioRedux = useSelector((state) => state.portfolio);
-
+    // const watchlistRedux = useSelector((state) => state.watchlistSlice);
     const getData = async () => {
         const callForTokenList = await axios.get(tokenList());
 
@@ -44,11 +45,18 @@ const TableData = () => {
         const token = e.currentTarget.value;
         console.log(token);
         //send token to redux
-        const res = await axios.get(singleToken(token));
-        setFaves(res.data); // -> should be redux state
-        console.log(res.data);
+        //send token to backend
+        setFaves(token);
+        // dispatch(watchlistActions.setToken(e.currentTarget.value));
+        const res = await backendAPIs.addWatchlist(token);
+        console.log(res);
+        // const res = await axios.get(singleToken(token));
+        // setFaves(res.data); // -> should be redux state
+        // console.log(res.data);
         // dispatch(watchlistActions.setToken());
     };
+
+    // console.log(watchlistRedux);
 
     return (
         <div>
@@ -69,12 +77,12 @@ const TableData = () => {
                                 <TableRow>
                                     <TableCell></TableCell>
                                     <TableCell>Token</TableCell>
-                                    <TableCell align="right">Price</TableCell>
-                                    <TableCell align="right">
+                                    <TableCell align="center">Price</TableCell>
+                                    <TableCell align="center">
                                         Market Cap
                                     </TableCell>
-                                    <TableCell align="right">
-                                        % Change
+                                    <TableCell align="center">
+                                        % Change (24hr)
                                     </TableCell>
                                     <TableCell></TableCell>
                                 </TableRow>
@@ -112,23 +120,32 @@ const TableData = () => {
                                         <TableCell component="th" scope="row">
                                             {token.name}
                                         </TableCell>
-                                        <TableCell align="right">
+                                        <TableCell
+                                            align="center"
+                                            sx={{ width: 150 }}
+                                        >
                                             {`$ ${parseFloat(
                                                 token.current_price
-                                            ).toFixed(2)}`}
+                                            ).toLocaleString("en-US")}`}
                                         </TableCell>
-                                        <TableCell align="right">
+                                        <TableCell
+                                            align="center"
+                                            sx={{ width: 250 }}
+                                        >
                                             {`$ ${parseFloat(
                                                 token.market_cap
                                             ).toLocaleString("en-US")}`}
                                         </TableCell>
-                                        <TableCell align="right">
+                                        <TableCell
+                                            align="center"
+                                            sx={{ width: 150 }}
+                                        >
                                             {` ${parseFloat(
-                                                token.market_cap_change_percentage_24h
+                                                token.price_change_percentage_24h
                                             ).toFixed(2)}`}
                                         </TableCell>
 
-                                        <TableCell align="right">
+                                        <TableCell align="center">
                                             <IconButton
                                                 value={token.id}
                                                 color="primary"

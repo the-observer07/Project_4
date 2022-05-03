@@ -47,6 +47,9 @@ const portfolioSlice = createSlice({
 
             // console.log(state.recalledToken);
         },
+        handleResetEdit: (state, action) => {
+            state.recalledTokens = "";
+        },
 
         // setRecallPrice: (state, action) => {
         //     state.recalledPrice = action.payload;

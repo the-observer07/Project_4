@@ -190,7 +190,11 @@ const ResponsiveAppBar = () => {
                         </div>
                     ) : (
                         <div>
-                            <Button variant="contained" href="/signup">
+                            <Button
+                                variant="contained"
+                                href="/signup"
+                                sx={{ margin: 1.5 }}
+                            >
                                 Login
                             </Button>
                             <Button variant="contained" href="/signup">
