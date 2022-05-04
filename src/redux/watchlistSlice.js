@@ -3,7 +3,7 @@ import { createSlice, configureStore } from "@reduxjs/toolkit";
 const watchlistSlice = createSlice({
     name: "watchlist",
     initialState: {
-        // delete: "",
+        delete: false,
         token: "",
         // price: "",
         // qty: "",
@@ -16,6 +16,11 @@ const watchlistSlice = createSlice({
         setToken: (state, action) => {
             // console.log(state.token, action.payload);
             state.token = action.payload;
+        },
+
+        setDelete: (state, action) => {
+            state.delete = action.payload;
+            console.log(state.delete, action.payload);
         },
         // setPrice: (state, action) => {
         //     // console.log(state.price, action.payload);

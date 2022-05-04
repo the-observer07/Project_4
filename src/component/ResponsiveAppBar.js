@@ -11,23 +11,34 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LogInButton from "../component/LogInButton";
 import SignUpButton from "../component/SignUpButton";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import userSlice, { userActions } from "../redux/user";
 
 const pages = ["Home", "Watchlist", "Portfolio"];
 const settings = ["Profile", "Preferences", "Logout"];
 
 const ResponsiveAppBar = () => {
-    const [loggedIn, setLoggedIn] = useState("false");
+    const [loggedIn, setLoggedIn] = useState(false);
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
+    const user = useSelector((state) => state.user);
+    // console.log(user.login.auth);
+
+    const status = () => {
+        setLoggedIn(user.auth);
+        console.log(user.auth);
+    };
+
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
+
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };
@@ -41,6 +52,12 @@ const ResponsiveAppBar = () => {
     };
 
     const handleLogIn = () => {};
+
+    const handleLogout = () => {};
+
+    useEffect(() => {
+        status();
+    }, []);
 
     return (
         <AppBar position="static" sx={{ bgcolor: "#16181f" }}>
@@ -145,7 +162,7 @@ const ResponsiveAppBar = () => {
                         ))}
                     </Box>
 
-                    {loggedIn === "true" ? (
+                    {loggedIn === true ? (
                         <div>
                             <Box sx={{ flexGrow: 0 }}>
                                 <Tooltip title="Open settings">
@@ -175,7 +192,7 @@ const ResponsiveAppBar = () => {
                                     open={Boolean(anchorElUser)}
                                     onClose={handleCloseUserMenu}
                                 >
-                                    {settings.map((setting) => (
+                                    {/* {settings.map((setting) => (
                                         <MenuItem
                                             key={setting}
                                             onClick={handleCloseUserMenu}
@@ -184,7 +201,31 @@ const ResponsiveAppBar = () => {
                                                 {setting}
                                             </Typography>
                                         </MenuItem>
-                                    ))}
+                                    ))} */}
+                                    <MenuItem
+                                        // key={setting}
+                                        onClick={handleCloseUserMenu}
+                                    >
+                                        <Typography textAlign="center">
+                                            Profile
+                                        </Typography>
+                                    </MenuItem>
+                                    <MenuItem
+                                        // key={setting}
+                                        onClick={handleCloseUserMenu}
+                                    >
+                                        <Typography textAlign="center">
+                                            Preferences
+                                        </Typography>
+                                    </MenuItem>
+                                    <MenuItem
+                                        // key={setting}
+                                        onClick={handleLogout}
+                                    >
+                                        <Typography textAlign="center">
+                                            Logout
+                                        </Typography>
+                                    </MenuItem>
                                 </Menu>
                             </Box>
                         </div>
@@ -192,7 +233,7 @@ const ResponsiveAppBar = () => {
                         <div>
                             <Button
                                 variant="contained"
-                                href="/signup"
+                                href="/login"
                                 sx={{ margin: 1.5 }}
                             >
                                 Login

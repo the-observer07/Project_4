@@ -1,6 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import watchlistSlice, { watchlistActions } from "../redux/watchlistSlice";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import Table from "@mui/material/Table";
@@ -15,38 +13,52 @@ import IconButton from "@mui/material/IconButton";
 import { Button, Box } from "@mui/material";
 import backendAPIs from "../utils/backendAPIs";
 import { singleToken } from "../utils/coingeckoAPICalls";
-
 import { useState, useEffect } from "react";
 import { Api } from "@mui/icons-material";
+import { useSelector, useDispatch } from "react-redux";
+import watchlistSlice, { watchlistActions } from "../redux/watchlistSlice";
 
 const WatchListTable = () => {
     const watchlist = useSelector((state) => state.watchlist);
     const [watchlistData, setWatchlistData] = useState([]);
     // console.log(watchlist);
     // const list = ""
-
+    let recalledData = [];
     // const [watchlist, setWatchlist] = useState([]);
     // const mappedData = [];
     // const topTen = [];
     const coingeckoData = [];
+    const dispatch = useDispatch();
 
     const callForWatchlist = async () => {
         // console.log(watchlist);
         const res = await backendAPIs.callWatchlistData();
-        const recalledData = res.data.getWatch;
+        recalledData = res.data.getWatch;
         console.log(recalledData);
 
-        recalledData.map(async (element) => {
+        for await (let element of recalledData) {
             console.log(element.token);
             const response = await axios.get(singleToken(element.token));
             console.log("hello");
             coingeckoData.push(response.data);
             console.log(coingeckoData);
-            setWatchlistData(coingeckoData);
-            console.log(watchlistData);
-            // return { element, response };
-            // return `${index} ${element.token}`; // logging object Object
-        });
+        }
+
+        // const outsideApi = () => {
+        //     recalledData.map(async (element) => {
+        //         console.log(element.token);
+        //         const response = await axios.get(singleToken(element.token));
+        //         console.log("hello");
+        //         coingeckoData.push(response.data);
+        //         console.log(coingeckoData);
+        //         setWatchlistData(coingeckoData);
+        //         console.log(watchlistData);
+        //         // return { element, response };
+        //         // return `${index} ${element.token}`; // logging object Object
+        //     });
+
+        setWatchlistData(coingeckoData);
+        console.log(watchlistData);
 
         // const stringData = mappedData.toString();
         // console.log(stringData);
@@ -55,7 +67,7 @@ const WatchListTable = () => {
         // console.log(response);
     };
 
-    console.log(watchlistData.length);
+    console.log(watchlistData);
 
     // const getString = mappedData.map ((element, index) => {
     //     const coingeckoRes = await axios.get(singleToken(getString));
@@ -73,9 +85,19 @@ const WatchListTable = () => {
     useEffect(() => {
         console.log("calling for watchlist");
         callForWatchlist();
-    }, []);
+        // outsideApi();
+    }, [watchlist]);
 
-    const handleDelete = () => {};
+    const handleDelete = async (e) => {
+        const token = e.currentTarget.value;
+        console.log(token);
+        dispatch(watchlistActions.setDelete(true));
+        const res = await backendAPIs.removeWatchlist(token);
+        dispatch(watchlistActions.setDelete(false));
+        // dispatch(portfolioActions.setDeleteMode(true));
+        // dispatch(portfolioActions.setDelete(true));
+        // dispatch(portfolioActions.handleReset());
+    };
 
     return (
         <div className="container">
@@ -92,9 +114,9 @@ const WatchListTable = () => {
                             <TableRow>
                                 <TableCell></TableCell>
                                 <TableCell>Token</TableCell>
-                                <TableCell align="right">Price</TableCell>
-                                <TableCell align="right">Market Cap</TableCell>
-                                <TableCell align="right">% Change</TableCell>
+                                <TableCell align="center">Price</TableCell>
+                                <TableCell align="center">Market Cap</TableCell>
+                                <TableCell align="center">% Change</TableCell>
                                 <TableCell></TableCell>
                             </TableRow>
                         </TableHead>
@@ -109,7 +131,7 @@ const WatchListTable = () => {
                                         },
                                     }}
                                 >
-                                    <TableCell align="right">
+                                    <TableCell align="center">
                                         <Box
                                             component="img"
                                             sx={{
@@ -131,25 +153,26 @@ const WatchListTable = () => {
                                     <TableCell component="th" scope="row">
                                         {token.name}
                                     </TableCell>
-                                    <TableCell align="right">
+                                    <TableCell align="center">
                                         {`$ ${parseFloat(
                                             token.market_data.current_price.usd
                                         ).toLocaleString("en-US")}`}
                                     </TableCell>
-                                    <TableCell align="right">
+                                    <TableCell align="center">
                                         {`$ ${parseFloat(
                                             token.market_data.market_cap.usd
                                         ).toLocaleString("en-US")}`}
                                     </TableCell>
-                                    <TableCell align="right">
+                                    <TableCell align="center">
                                         {` ${parseFloat(
                                             token.market_data
                                                 .price_change_percentage_24h
                                         ).toFixed(2)}`}
                                     </TableCell>
 
-                                    <TableCell align="right">
+                                    <TableCell align="center">
                                         <IconButton
+                                            value={token.name}
                                             color="primary"
                                             aria-label="add to shopping cart"
                                             sx={{

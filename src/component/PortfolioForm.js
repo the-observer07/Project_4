@@ -14,10 +14,18 @@ export default function HelperTextMisaligned() {
     // const [data, setData] = useState("");
     const dispatch = useDispatch();
     const portfolio = useSelector((state) => state.portfolio);
-    console.log(portfolio);
+    // console.log(portfolio);
     const [loading, setLoading] = useState(false);
 
-    const portfolioRedux = useSelector((state) => state.portfolio);
+    const [editedToken, setEditedToken] = useState("");
+    console.log(portfolio.recalledTokens.recalledToken);
+    console.log(editedToken);
+    const [editedPrice, setEditedPrice] = useState("");
+    const [editedQty, setEditedQty] = useState("");
+
+    const [token, setToken] = useState("");
+    const [price, setPrice] = useState("");
+    const [quantity, setQuantity] = useState("");
 
     // const selector = useSelector((state) => state.portfolio);
 
@@ -38,20 +46,20 @@ export default function HelperTextMisaligned() {
     };
 
     const handleIdChange = (event) => {
-        // setToken(event.target.value);
+        setToken(event.target.value);
         // console.log(`id = ${event.target.value}`);
         // dispatch(portfolioActions.setToken(event.target.value));
         dispatch(portfolioActions.setToken(event.target.value));
     };
 
     const handlePriceChange = (event) => {
-        // setPrice(event.target.value);
+        setPrice(event.target.value);
         // console.log(`price = ${event.target.value}`);
         dispatch(portfolioActions.setPrice(event.target.value));
     };
 
     const handleQtyChange = (event) => {
-        // setQty(event.target.value);
+        setQuantity(event.target.value);
         // console.log(`qty = ${event.target.value}`);
         dispatch(portfolioActions.setQty(event.target.value));
     };
@@ -67,10 +75,16 @@ export default function HelperTextMisaligned() {
         // formData.append("quantity", qty);
         // console.log(token, price, qty);
 
+        // const data = {
+        //     token: portfolio.token,
+        //     price: portfolio.price,
+        //     quantity: portfolio.qty,
+        // };
+
         const data = {
-            token: portfolio.token,
-            price: portfolio.price,
-            quantity: portfolio.qty,
+            token: token,
+            price: price,
+            quantity: quantity,
         };
 
         console.log(data);
@@ -79,34 +93,79 @@ export default function HelperTextMisaligned() {
 
         // console.log(formData.getAll("price", "quantity"));
 
-        backendAPIs.addNewPortfolio(data);
+        backendAPIs.addUserNewPortfolio(data);
         setLoading(false);
         dispatch(portfolioActions.handleSubmit());
+        setToken("");
+        setPrice("");
+        setQuantity("");
     };
 
     const handleSubmitEdit = (event) => {
         event.preventDefault();
         setLoading(true);
         const data = {
-            token: portfolio.token,
-            price: portfolio.price,
-            quantity: portfolio.qty,
+            token: editedToken,
+            price: editedPrice,
+            quantity: editedQty,
         };
-        backendAPIs.editPortfolio(data);
+        console.log(data);
+        backendAPIs.submitEditedPortfolio(data);
         setLoading(false);
         dispatch(portfolioActions.handleResetEdit());
+        setEditedPrice("");
+        setEditedToken("");
+        setEditedQty("");
+        dispatch(portfolioActions.setEdit(false));
     };
 
-    // const callForPortfolio = async () => {
-    //     // console.log(backendAPIs);
-    //     const res = await backendAPIs.pullPortfolio();
-    //     // console.log(res.data.data);
-    //     // setPortfolio(res.data.data);
+    const handleEditIdChange = (event) => {
+        setEditedToken(event.target.value);
+        // dispatch(portfolioActions.setEditedToken(event.target.value));
+    };
+
+    const handleEditPriceChange = (event) => {
+        setEditedPrice(event.target.value);
+
+        // dispatch(portfolioActions.setEditedPrice(event.target.value));
+    };
+
+    const handleEditQtyChange = (event) => {
+        setEditedQty(event.target.value);
+        // dispatch(portfolioActions.setEditedQty(event.target.value));
+    };
+
+    const callForPortfolio = async () => {
+        // console.log(backendAPIs);
+        const res = await backendAPIs.pullPortfolio();
+        // console.log(res.data.data);
+        // setPortfolio(res.data.data);
+    };
+
+    const checkEditMode = () => {
+        if (portfolio.editMode === true) {
+            return (
+                setEditedToken(portfolio.recalledTokens.recalledToken),
+                setEditedPrice(portfolio.recalledTokens.recalledPrice),
+                setEditedQty(portfolio.recalledTokens.recalledQty)
+            );
+        }
+    };
+
+    // const handleEditSubmit = () => {
+    //     const data = {
+    //         token: editedToken,
+    //         price: editedPrice,
+    //         quantity: editedQty,
+    //     };
+    //             backendAPIs.editPortfolio(data);
+
     // };
 
-    // useEffect(() => {
-    //     callForPortfolio();
-    // }, [portfolioRedux]);
+    useEffect(() => {
+        callForPortfolio();
+        checkEditMode();
+    }, [portfolio]);
 
     return (
         <Box
@@ -117,10 +176,10 @@ export default function HelperTextMisaligned() {
                 "& > :not(style)": { m: 1 },
             }}
         >
-            {portfolioRedux.editMode === true ? (
+            {portfolio.editMode === true ? (
                 <div align="center">
                     <TextField
-                        value={portfolioRedux.recalledTokens.recalledToken}
+                        value={editedToken}
                         helperText="Please enter your token"
                         id="demo-helper-text-misaligned"
                         label="Token"
@@ -128,12 +187,12 @@ export default function HelperTextMisaligned() {
                         color=""
                         focused
                         type="String"
-                        onChange={handleIdChange}
+                        onChange={handleEditIdChange}
                         sx={{ margin: 1.5 }}
                         name="id"
                     />
                     <TextField
-                        value={portfolioRedux.recalledTokens.recalledPrice}
+                        value={editedPrice}
                         helperText="Please enter your purchase price"
                         id="demo-helper-text-misaligned-no-helper"
                         label="Price"
@@ -141,12 +200,12 @@ export default function HelperTextMisaligned() {
                         color=""
                         focused
                         type="Number"
-                        onChange={handlePriceChange}
+                        onChange={handleEditPriceChange}
                         sx={{ margin: 1.5 }}
                         name="price"
                     />
                     <TextField
-                        value={portfolioRedux.recalledTokens.recalledQty}
+                        value={editedQty}
                         helperText="Please enter your purchase quantity"
                         id="demo-helper-text-misaligned-no-helper"
                         label="Qty"
@@ -154,7 +213,7 @@ export default function HelperTextMisaligned() {
                         color=""
                         focused
                         type="Number"
-                        onChange={handleQtyChange}
+                        onChange={handleEditQtyChange}
                         sx={{ margin: 1.5 }}
                         name="qty"
                     />
@@ -203,7 +262,7 @@ export default function HelperTextMisaligned() {
                 </div>
             )}
 
-            {portfolioRedux.editMode === true ? (
+            {portfolio.editMode === true ? (
                 <Button variant="contained" onClick={handleSubmitEdit}>
                     Save
                 </Button>

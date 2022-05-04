@@ -16,8 +16,8 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import IconButton from "@mui/material/IconButton";
 import backendAPIs from "../utils/backendAPIs";
 import EditIcon from "@mui/icons-material/Edit";
-import { useSelector, useDispatch } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useSelector, useDispatch } from "react-redux";
 import portfolioSlice, { portfolioActions } from "../redux/portfolioSlice";
 // import { AirlineSeatReclineNormalOutlined } from "@material-ui/icons";
 
@@ -30,7 +30,7 @@ const PortfolioTable = () => {
     // const [apiData, setApiData] = useState();
     // const [recallData, setRecallData] = useState([]);
     const dispatch = useDispatch();
-    const portfolioDelete = useSelector((state) => state.portfolio);
+    // const portfolioDelete = useSelector((state) => state.portfolio);
     // console.log(portfolio);
 
     const callForPortfolio = async () => {
@@ -58,8 +58,10 @@ const PortfolioTable = () => {
         const token = e.currentTarget.value;
         console.log(token);
         const res = await backendAPIs.removePortfolio(token);
-        dispatch(portfolioActions.setDelete(e));
+        // dispatch(portfolioActions.setDeleteMode(true));
+        dispatch(portfolioActions.setDelete(true));
         dispatch(portfolioActions.handleReset());
+        // dispatch(portfolioActions.setDeleteMode(false));
     };
 
     const handleEdit = async (e) => {
@@ -86,9 +88,7 @@ const PortfolioTable = () => {
             <div className="int-container">
                 <div className="holder">
                     <br />
-                    {/* <h2 className="header">
-                        Cryptocurrency Tokens by Market Cap
-                    </h2> */}
+                    <h2 className="header">Portfolio</h2>
                     <br />
                     <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 350 }} aria-label="simple table">
