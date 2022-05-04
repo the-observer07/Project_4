@@ -21,40 +21,45 @@ import { Api } from "@mui/icons-material";
 
 const WatchListTable = () => {
     const watchlist = useSelector((state) => state.watchlist);
-    const [watchlistData, setWatchlistData] = useState();
+    const [watchlistData, setWatchlistData] = useState([]);
     // console.log(watchlist);
     // const list = ""
 
     // const [watchlist, setWatchlist] = useState([]);
-    const mappedData = [];
-    const topTen = [];
+    // const mappedData = [];
+    // const topTen = [];
     const coingeckoData = [];
 
     const callForWatchlist = async () => {
         // console.log(watchlist);
         const res = await backendAPIs.callWatchlistData();
         const recalledData = res.data.getWatch;
-        // console.log(recalledData);
+        console.log(recalledData);
 
         recalledData.map(async (element) => {
             console.log(element.token);
             const response = await axios.get(singleToken(element.token));
+            console.log("hello");
             coingeckoData.push(response.data);
             console.log(coingeckoData);
             setWatchlistData(coingeckoData);
-            return { element, response };
-            //     // return `${index} ${element.token}`; // logging object Object
+            console.log(watchlistData);
+            // return { element, response };
+            // return `${index} ${element.token}`; // logging object Object
         });
 
-        const stringData = mappedData.toString();
-        console.log(stringData);
+        // const stringData = mappedData.toString();
+        // console.log(stringData);
 
         // const response = await axios.get(singleToken(mappedData));
         // console.log(response);
     };
+
+    console.log(watchlistData.length);
+
     // const getString = mappedData.map ((element, index) => {
     //     const coingeckoRes = await axios.get(singleToken(getString));
-    console.log(watchlistData);
+    // console.log(watchlistData);
     //     return index
     // });
     // const coingeckoRes = await axios.get(singleToken(getString));
@@ -66,6 +71,7 @@ const WatchListTable = () => {
     // console.log(res);
 
     useEffect(() => {
+        console.log("calling for watchlist");
         callForWatchlist();
     }, []);
 
@@ -93,6 +99,7 @@ const WatchListTable = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
+                            {/* {JSON.stringify(watchlistData[1].id)} */}
                             {watchlistData.map((token) => (
                                 <TableRow
                                     key={token.name}
@@ -127,9 +134,7 @@ const WatchListTable = () => {
                                     <TableCell align="right">
                                         {`$ ${parseFloat(
                                             token.market_data.current_price.usd
-                                        )
-                                            .toFixed(2)
-                                            .toLocaleString("en-US")}`}
+                                        ).toLocaleString("en-US")}`}
                                     </TableCell>
                                     <TableCell align="right">
                                         {`$ ${parseFloat(

@@ -30,6 +30,13 @@ export default function HelperTextMisaligned() {
 
     // const randomObj = { one: 1, two: 2, three: 3 };
 
+    const initialValues = {
+        id: "",
+        price: "",
+        qty: "",
+        loading: false,
+    };
+
     const handleIdChange = (event) => {
         // setToken(event.target.value);
         // console.log(`id = ${event.target.value}`);
@@ -123,6 +130,7 @@ export default function HelperTextMisaligned() {
                         type="String"
                         onChange={handleIdChange}
                         sx={{ margin: 1.5 }}
+                        name="id"
                     />
                     <TextField
                         value={portfolioRedux.recalledTokens.recalledPrice}
@@ -135,6 +143,7 @@ export default function HelperTextMisaligned() {
                         type="Number"
                         onChange={handlePriceChange}
                         sx={{ margin: 1.5 }}
+                        name="price"
                     />
                     <TextField
                         value={portfolioRedux.recalledTokens.recalledQty}
@@ -147,6 +156,7 @@ export default function HelperTextMisaligned() {
                         type="Number"
                         onChange={handleQtyChange}
                         sx={{ margin: 1.5 }}
+                        name="qty"
                     />
                 </div>
             ) : (
@@ -162,6 +172,7 @@ export default function HelperTextMisaligned() {
                         type="String"
                         onChange={handleIdChange}
                         sx={{ margin: 1.5 }}
+                        name="token"
                     />
                     <TextField
                         value={portfolio.price}
@@ -174,6 +185,7 @@ export default function HelperTextMisaligned() {
                         type="Number"
                         onChange={handlePriceChange}
                         sx={{ margin: 1.5 }}
+                        name="price"
                     />
                     <TextField
                         value={portfolio.qty}
@@ -186,6 +198,7 @@ export default function HelperTextMisaligned() {
                         type="Number"
                         onChange={handleQtyChange}
                         sx={{ margin: 1.5 }}
+                        namne="qty"
                     />
                 </div>
             )}
