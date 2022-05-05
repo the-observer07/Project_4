@@ -45,38 +45,42 @@ const addUserNewPortfolio = async (body) => {
 
 const addNewPortfolio = async (body) => {
     console.log(body);
-    const res = await axios.post(localHost + "/portfolio/newentry", body);
+    const res = await axios.post(localHost + "/users/portfolio/newentry", body);
     // console.log(response);
     return res;
 };
 
 const removePortfolio = async (body) => {
     console.log(`backendAPI ${body}`);
-    const res = await axios.post(localHost + "/portfolio/removeentry", {
-        token: body,
-    });
+    const res = await axios.post(
+        localHost + "/users/portfolio/removeentry",
+        body
+    );
     console.log("Removed Entry", res);
     return res;
 };
 
 const editPortfolio = async (body) => {
-    const res = await axios.post(localHost + "/portfolio/entryupdate", {
-        token: body,
-    });
+    const res = await axios.post(
+        localHost + "/users/portfolio/entryupdate",
+        body
+    );
     return res;
 };
 
 const submitEditedPortfolio = async (body) => {
     console.log(body);
-    const res = await axios.post(localHost + "/portfolio/entryupdatesubmit", {
-        body,
-    });
+    const res = await axios.post(
+        localHost + "/users/portfolio/entryupdatesubmit",
+        body
+    );
     console.log("hello");
     return res;
 };
 
-const pullPortfolio = async () => {
-    const res = await axios.get(localHost + "/portfolio/pull");
+const pullPortfolio = async (body) => {
+    console.log(body);
+    const res = await axios.post(localHost + "/users/portfolio/pull", body);
     return res;
 };
 

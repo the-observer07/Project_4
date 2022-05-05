@@ -6,26 +6,28 @@ import backendAPIs from "../utils/backendAPIs";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import portfolioSlice, { portfolioActions } from "../redux/portfolioSlice";
+import userSlice, { userActions } from "../redux/user";
 
 // import store from "./app/store";
 // import { Provider } from "react-redux";
 
 export default function HelperTextMisaligned() {
     // const [data, setData] = useState("");
-    const dispatch = useDispatch();
-    const portfolio = useSelector((state) => state.portfolio);
+    // console.log(portfolio.recalledTokens.recalledToken);
+    // console.log(editedToken);
     // console.log(portfolio);
     const [loading, setLoading] = useState(false);
-
     const [editedToken, setEditedToken] = useState("");
-    console.log(portfolio.recalledTokens.recalledToken);
-    console.log(editedToken);
     const [editedPrice, setEditedPrice] = useState("");
     const [editedQty, setEditedQty] = useState("");
-
     const [token, setToken] = useState("");
     const [price, setPrice] = useState("");
     const [quantity, setQuantity] = useState("");
+
+    // REDUX
+    const dispatch = useDispatch();
+    const portfolio = useSelector((state) => state.portfolio);
+    const user = useSelector((state) => state.user);
 
     // const selector = useSelector((state) => state.portfolio);
 
@@ -49,49 +51,32 @@ export default function HelperTextMisaligned() {
         setToken(event.target.value);
         // console.log(`id = ${event.target.value}`);
         // dispatch(portfolioActions.setToken(event.target.value));
-        dispatch(portfolioActions.setToken(event.target.value));
+        // dispatch(portfolioActions.setToken(event.target.value));
     };
 
     const handlePriceChange = (event) => {
         setPrice(event.target.value);
         // console.log(`price = ${event.target.value}`);
-        dispatch(portfolioActions.setPrice(event.target.value));
+        // dispatch(portfolioActions.setPrice(event.target.value));
     };
 
     const handleQtyChange = (event) => {
         setQuantity(event.target.value);
         // console.log(`qty = ${event.target.value}`);
-        dispatch(portfolioActions.setQty(event.target.value));
+        // dispatch(portfolioActions.setQty(event.target.value));
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        dispatch(portfolioActions.setSubmit());
         setLoading(true);
-        // dispatch(portfolioActions.handleSubmit(true));
-
-        // let formData = new FormData();
-        // formData.append("token", token);
-        // formData.append("price", price);
-        // formData.append("quantity", qty);
-        // console.log(token, price, qty);
-
-        // const data = {
-        //     token: portfolio.token,
-        //     price: portfolio.price,
-        //     quantity: portfolio.qty,
-        // };
 
         const data = {
+            username: user.username,
             token: token,
             price: price,
             quantity: quantity,
         };
-
-        console.log(data);
-
-        // console.log("formData", qs.stringify(formData));
-
-        // console.log(formData.getAll("price", "quantity"));
 
         backendAPIs.addUserNewPortfolio(data);
         setLoading(false);
@@ -101,16 +86,18 @@ export default function HelperTextMisaligned() {
         setQuantity("");
     };
 
-    const handleSubmitEdit = (event) => {
+    const handleSubmitEdit = async (event) => {
         event.preventDefault();
         setLoading(true);
         const data = {
+            username: user.username,
             token: editedToken,
             price: editedPrice,
             quantity: editedQty,
         };
         console.log(data);
-        backendAPIs.submitEditedPortfolio(data);
+        const res = await backendAPIs.submitEditedPortfolio(data);
+        // console.log(res);
         setLoading(false);
         dispatch(portfolioActions.handleResetEdit());
         setEditedPrice("");
@@ -152,16 +139,6 @@ export default function HelperTextMisaligned() {
         }
     };
 
-    // const handleEditSubmit = () => {
-    //     const data = {
-    //         token: editedToken,
-    //         price: editedPrice,
-    //         quantity: editedQty,
-    //     };
-    //             backendAPIs.editPortfolio(data);
-
-    // };
-
     useEffect(() => {
         callForPortfolio();
         checkEditMode();
@@ -187,7 +164,7 @@ export default function HelperTextMisaligned() {
                         color=""
                         focused
                         type="String"
-                        onChange={handleEditIdChange}
+                        // onChange={handleEditIdChange}
                         sx={{ margin: 1.5 }}
                         name="id"
                     />
@@ -221,7 +198,7 @@ export default function HelperTextMisaligned() {
             ) : (
                 <div>
                     <TextField
-                        value={portfolio.token}
+                        value={token}
                         helperText="Please enter your token"
                         id="demo-helper-text-misaligned"
                         label="Token"
@@ -234,7 +211,7 @@ export default function HelperTextMisaligned() {
                         name="token"
                     />
                     <TextField
-                        value={portfolio.price}
+                        value={price}
                         helperText="Please enter your purchase price"
                         id="demo-helper-text-misaligned-no-helper"
                         label="Price"
@@ -247,7 +224,7 @@ export default function HelperTextMisaligned() {
                         name="price"
                     />
                     <TextField
-                        value={portfolio.qty}
+                        value={quantity}
                         helperText="Please enter your purchase quantity"
                         id="demo-helper-text-misaligned-no-helper"
                         label="Qty"

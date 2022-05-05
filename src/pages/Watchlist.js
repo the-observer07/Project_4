@@ -28,6 +28,7 @@ const Watchlist = () => {
     return (
         <>
             <ResponsiveAppBar />
+            <br />
             <WatchListTable />
         </>
     );

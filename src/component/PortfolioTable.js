@@ -29,35 +29,38 @@ const PortfolioTable = () => {
     const [portfolio, setPortfolio] = useState([]);
     // const [apiData, setApiData] = useState();
     // const [recallData, setRecallData] = useState([]);
-    const dispatch = useDispatch();
+
     // const portfolioDelete = useSelector((state) => state.portfolio);
     // console.log(portfolio);
 
-    const callForPortfolio = async () => {
-        // console.log(backendAPIs);
-        const res = await backendAPIs.pullPortfolio();
-        // console.log(res.data.data);
-        setPortfolio(res.data.data);
-    };
-    // console.log("API Call");
-    // const res = await axios.get("http://127.0.0.1:5001/portfolio/pull");
-    // console.log("API Called");
-    // console.log(res);
-    // console.log(res.data.data);
-    // setPortfolio(res.data.data);
-    // console.log(portfolio);
+    //===========================================================================
 
+    // REDUX //
+
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.user);
     const portfolioRedux = useSelector((state) => state.portfolio);
 
-    useEffect(() => {
-        callForPortfolio();
-    }, [portfolioRedux]);
+    //
+
+    //===========================================================================
+
+    const callForPortfolio = async () => {
+        const body = {
+            username: user.username,
+        };
+
+        const res = await backendAPIs.pullPortfolio(body);
+        console.log(res.data.data.portfolio);
+        setPortfolio(res.data.data.portfolio);
+    };
 
     const handleDelete = async (e) => {
         // console.log(value);
         const token = e.currentTarget.value;
-        console.log(token);
-        const res = await backendAPIs.removePortfolio(token);
+        const body = { username: user.username, token: token };
+        console.log(body);
+        const res = await backendAPIs.removePortfolio(body);
         // dispatch(portfolioActions.setDeleteMode(true));
         dispatch(portfolioActions.setDelete(true));
         dispatch(portfolioActions.handleReset());
@@ -67,20 +70,43 @@ const PortfolioTable = () => {
     const handleEdit = async (e) => {
         dispatch(portfolioActions.setEdit(true));
         const token = e.currentTarget.value;
-        console.log(token);
-        const res = await backendAPIs.editPortfolio(token);
+        const body = { username: user.username, token: token };
+        console.log(body);
+        const res = await backendAPIs.editPortfolio(body);
+        const portfolioData = res.data.editedEntry.portfolio;
+        console.log(portfolioData);
+        const filteredData = portfolioData.filter(
+            (element) => element.token == token
+        );
+        console.log(filteredData[0]);
+        const data = filteredData[0];
+        console.log(data);
+        // for (let element of portfolioData) {
         dispatch(
             portfolioActions.setRecall({
-                recalledToken: res.data.editedEntry.token,
-                recalledPrice: res.data.editedEntry.price,
-                recalledQty: res.data.editedEntry.quantity,
+                recalledToken: data.token,
+                recalledPrice: data.price,
+                recalledQty: data.quantity,
             })
-
-            // need to refresh form and update table
         );
+        // }
+
+        // dispatch(
+        //     portfolioActions.setRecall({
+        //         recalledToken: res.data.editedEntry.token,
+        //         recalledPrice: res.data.editedEntry.price,
+        //         recalledQty: res.data.editedEntry.quantity,
+        //     })
+
+        // need to refresh form and update table
+        // );
     };
 
-    console.log(portfolioRedux);
+    useEffect(() => {
+        callForPortfolio();
+    }, [portfolioRedux]);
+
+    // console.log(portfolioRedux);
 
     return (
         <div>

@@ -10,17 +10,20 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import { Button, Box } from "@mui/material";
+// import { Container } from "@mui/material";
+import { Container, Button, Box } from "@mui/material";
 import backendAPIs from "../utils/backendAPIs";
 import { singleToken } from "../utils/coingeckoAPICalls";
 import { useState, useEffect } from "react";
 import { Api } from "@mui/icons-material";
 import { useSelector, useDispatch } from "react-redux";
 import watchlistSlice, { watchlistActions } from "../redux/watchlistSlice";
+import Loading from "../component/Loading";
 
 const WatchListTable = () => {
     const watchlist = useSelector((state) => state.watchlist);
     const [watchlistData, setWatchlistData] = useState([]);
+    const [loading, setLoading] = useState(false);
     // console.log(watchlist);
     // const list = ""
     let recalledData = [];
@@ -33,6 +36,7 @@ const WatchListTable = () => {
     // console.log(user);
 
     const callForWatchlist = async () => {
+        setLoading(true);
         // console.log(watchlist);
         const body = { username: user.username };
         // console.log(body);
@@ -50,7 +54,8 @@ const WatchListTable = () => {
         }
 
         setWatchlistData(coingeckoData);
-        // console.log(watchlistData);
+        console.log("thisisforcoingeckodata", coingeckoData);
+        setLoading(false);
     };
 
     // console.log(watchlistData);
@@ -87,6 +92,7 @@ const WatchListTable = () => {
         // console.log(res);
         dispatch(watchlistActions.setDefault());
         console.log(watchlist);
+        console.log("loggingwatchlistDATA", watchlistData);
 
         // dispatch(watchlistActions.setToken(""));
         // dispatch(portfolioActions.setDeleteMode(true));
@@ -97,93 +103,107 @@ const WatchListTable = () => {
     return (
         <div className="container">
             <div className="holder">
-                <h2 className="header">Watchlist</h2>
-                <br />
-                <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 350 }} aria-label="simple table">
-                        <Typography
-                            variant="h4"
-                            style={{ margin: 18, fontFamily: "Roboto" }}
-                        ></Typography>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell></TableCell>
-                                <TableCell>Token</TableCell>
-                                <TableCell align="center">Price</TableCell>
-                                <TableCell align="center">Market Cap</TableCell>
-                                <TableCell align="center">% Change</TableCell>
-                                <TableCell></TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {/* {JSON.stringify(watchlistData[1].id)} */}
-                            {watchlistData.map((token) => (
-                                <TableRow
-                                    key={token.name}
-                                    sx={{
-                                        "&:last-child td, &:last-child th": {
-                                            border: 0,
-                                        },
-                                    }}
-                                >
+                <h1 className="header">Watchlist</h1>
+                {loading === true ? (
+                    <Container align="center">
+                        <Box>
+                            <Loading />
+                        </Box>
+                    </Container>
+                ) : (
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 350 }} aria-label="simple table">
+                            <Typography
+                                variant="h4"
+                                style={{ margin: 18, fontFamily: "Roboto" }}
+                            ></Typography>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell></TableCell>
+                                    <TableCell>Token</TableCell>
+                                    <TableCell align="center">Price</TableCell>
                                     <TableCell align="center">
-                                        <Box
-                                            component="img"
-                                            sx={{
-                                                height: 25,
-                                                width: 25,
-                                                maxHeight: {
-                                                    xs: 233,
-                                                    md: 167,
-                                                },
-                                                maxWidth: {
-                                                    xs: 350,
-                                                    md: 250,
-                                                },
-                                            }}
-                                            alt=""
-                                            src={`${token.image.small}`}
-                                        />
-                                    </TableCell>
-                                    <TableCell component="th" scope="row">
-                                        {token.name}
+                                        Market Cap
                                     </TableCell>
                                     <TableCell align="center">
-                                        {`$ ${parseFloat(
-                                            token.market_data.current_price.usd
-                                        ).toLocaleString("en-US")}`}
+                                        % Change
                                     </TableCell>
-                                    <TableCell align="center">
-                                        {`$ ${parseFloat(
-                                            token.market_data.market_cap.usd
-                                        ).toLocaleString("en-US")}`}
-                                    </TableCell>
-                                    <TableCell align="center">
-                                        {` ${parseFloat(
-                                            token.market_data
-                                                .price_change_percentage_24h
-                                        ).toFixed(2)}`}
-                                    </TableCell>
-
-                                    <TableCell align="center">
-                                        <IconButton
-                                            value={token.name}
-                                            color="primary"
-                                            aria-label="add to shopping cart"
-                                            sx={{
-                                                height: 30,
-                                                width: 30,
-                                            }}
-                                            onClick={handleDelete}
-                                        >
-                                            <DeleteIcon />
-                                        </IconButton>
-                                    </TableCell>
+                                    <TableCell></TableCell>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                            </TableHead>
+
+                            <TableBody>
+                                {/* {JSON.stringify(watchlistData[1].id)} */}
+                                {watchlistData.map((token) => (
+                                    <TableRow
+                                        key={token.name}
+                                        sx={{
+                                            "&:last-child td, &:last-child th":
+                                                {
+                                                    border: 0,
+                                                },
+                                        }}
+                                    >
+                                        <TableCell align="center">
+                                            <Box
+                                                component="img"
+                                                sx={{
+                                                    height: 25,
+                                                    width: 25,
+                                                    maxHeight: {
+                                                        xs: 233,
+                                                        md: 167,
+                                                    },
+                                                    maxWidth: {
+                                                        xs: 350,
+                                                        md: 250,
+                                                    },
+                                                }}
+                                                alt=""
+                                                src={`${token.image.small}`}
+                                            />
+                                        </TableCell>
+                                        <TableCell component="th" scope="row">
+                                            {token.name}
+                                        </TableCell>
+                                        <TableCell align="center">
+                                            {`$ ${parseFloat(
+                                                token.market_data.current_price
+                                                    .usd
+                                            ).toLocaleString("en-US")}`}
+                                        </TableCell>
+                                        <TableCell align="center">
+                                            {`$ ${parseFloat(
+                                                token.market_data.market_cap.usd
+                                            ).toLocaleString("en-US")}`}
+                                        </TableCell>
+                                        <TableCell align="center">
+                                            {` ${parseFloat(
+                                                token.market_data
+                                                    .price_change_percentage_24h
+                                            ).toFixed(2)}`}
+                                        </TableCell>
+
+                                        <TableCell align="center">
+                                            <IconButton
+                                                value={token.id}
+                                                color="primary"
+                                                aria-label="add to shopping cart"
+                                                sx={{
+                                                    height: 30,
+                                                    width: 30,
+                                                }}
+                                                onClick={handleDelete}
+                                            >
+                                                <DeleteIcon />
+                                            </IconButton>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                )}
             </div>
         </div>
     );
