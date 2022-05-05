@@ -19,8 +19,16 @@ const watchlistSlice = createSlice({
         },
 
         setDelete: (state, action) => {
-            state.delete = action.payload;
+            console.log("TRYING TO DELETE", action.payload);
+            state.delete = true;
             console.log(state.delete, action.payload);
+        },
+
+        setDefault: (state, action) => {
+            // console.log("TRYING TO RESET", action.payload);
+            state.delete = false;
+            state.token = "";
+            // console.log(state.delete, action.payload);
         },
         // setPrice: (state, action) => {
         //     // console.log(state.price, action.payload);

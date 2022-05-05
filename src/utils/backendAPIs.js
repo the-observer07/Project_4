@@ -27,8 +27,8 @@ const logout = async () => {
     return res;
 };
 
-const createNewUser = async () => {
-    const res = await axios.post(localHost + "/users/newuser");
+const createNewUser = async (body) => {
+    const res = await axios.post(localHost + "/users/newuser", body);
     return res;
 };
 
@@ -45,38 +45,42 @@ const addUserNewPortfolio = async (body) => {
 
 const addNewPortfolio = async (body) => {
     console.log(body);
-    const res = await axios.post(localHost + "/portfolio/newentry", body);
+    const res = await axios.post(localHost + "/users/portfolio/newentry", body);
     // console.log(response);
     return res;
 };
 
 const removePortfolio = async (body) => {
     console.log(`backendAPI ${body}`);
-    const res = await axios.post(localHost + "/portfolio/removeentry", {
-        token: body,
-    });
+    const res = await axios.post(
+        localHost + "/users/portfolio/removeentry",
+        body
+    );
     console.log("Removed Entry", res);
     return res;
 };
 
 const editPortfolio = async (body) => {
-    const res = await axios.post(localHost + "/portfolio/entryupdate", {
-        token: body,
-    });
+    const res = await axios.post(
+        localHost + "/users/portfolio/entryupdate",
+        body
+    );
     return res;
 };
 
 const submitEditedPortfolio = async (body) => {
     console.log(body);
-    const res = await axios.post(localHost + "/portfolio/entryupdatesubmit", {
-        body,
-    });
+    const res = await axios.post(
+        localHost + "/users/portfolio/entryupdatesubmit",
+        body
+    );
     console.log("hello");
     return res;
 };
 
-const pullPortfolio = async () => {
-    const res = await axios.get(localHost + "/portfolio/pull");
+const pullPortfolio = async (body) => {
+    console.log(body);
+    const res = await axios.post(localHost + "/users/portfolio/pull", body);
     return res;
 };
 
@@ -85,22 +89,24 @@ const pullPortfolio = async () => {
 //
 
 const addWatchlist = async (body) => {
-    const res = await axios.post(localHost + "/users/watchlist/newwatch", {
-        token: body,
-    });
+    console.log(body);
+    const res = await axios.post(localHost + "/users/watchlist/newwatch", body);
     return res;
 };
 
-const callWatchlistData = async () => {
-    const res = await axios.get(localHost + "/watchlist/getwatch");
+const callWatchlistData = async (body) => {
+    console.log(body);
+    const res = await axios.post(localHost + "/users/watchlist/getwatch", body);
     return res;
 };
 
 const removeWatchlist = async (body) => {
     console.log(body);
-    const res = await axios.post(localHost + "/watchlist/removewatch", {
-        token: body,
-    });
+    const res = await axios.post(
+        localHost + "/users/watchlist/removewatch",
+        body
+    );
+    console.log(res);
     return res;
 };
 

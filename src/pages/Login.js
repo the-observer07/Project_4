@@ -23,6 +23,7 @@ const Login = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        // console.log(username);
         const data = {
             username: username,
             password: password,

@@ -13,6 +13,7 @@ const portfolioSlice = createSlice({
         editedPrice: "",
         editedQty: "",
         deleteMode: false,
+        submit: false,
         // recalledPrice: "",
         // reaclledQty: "",
     },
@@ -29,6 +30,11 @@ const portfolioSlice = createSlice({
             // console.log(state.token, action.payload);
             state.qty = action.payload;
         },
+
+        setSubmit: (state, action) => {
+            state.submit = true;
+        },
+
         setEditedToken: (state, action) => {
             // console.log(state.token, action.payload);
             state.token = action.payload;
@@ -41,11 +47,13 @@ const portfolioSlice = createSlice({
             // console.log(state.token, action.payload);
             state.qty = action.payload;
         },
+
         handleSubmit: (state, action) => {
             // state.submission = action.payload.submission;
             state.token = "";
             state.price = "";
             state.qty = "";
+            state.submit = false;
         },
         setDelete: (state, action) => {
             state.delete = action.payload;
