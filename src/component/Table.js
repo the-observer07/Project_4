@@ -33,6 +33,7 @@ const TableData = () => {
 
     const user = useSelector((state) => state.user);
     const portfolioRedux = useSelector((state) => state.portfolio);
+    // const user = useSelector((state) => state.user)
     // const watchlistRedux = useSelector((state) => state.watchlistSlice);
     const getData = async () => {
         const callForTokenList = await axios.get(tokenList());
@@ -54,13 +55,13 @@ const TableData = () => {
     }, []);
 
     const handleAddToFavs = async (e) => {
-        const token = e.currentTarget.value;
-        console.log(token);
+        const body = { username: user.username, token: e.currentTarget.value };
+        console.log(body.token.token);
         //send token to redux
         //send token to backend
-        setFaves(token);
+        setFaves(body.token);
         // dispatch(watchlistActions.setToken(e.currentTarget.value));
-        const res = await backendAPIs.addWatchlist(token);
+        const res = await backendAPIs.addWatchlist(body);
         console.log(res);
         // const res = await axios.get(singleToken(token));
         // setFaves(res.data); // -> should be redux state

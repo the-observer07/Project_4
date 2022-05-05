@@ -27,10 +27,10 @@ const DataTicker = () => {
         // let sevenData = rawData.tickers;
         // console.log(sevenData);
         const firstSeven = rawData.filter((element, index) => index < 12);
-        console.log(firstSeven);
+        // console.log(firstSeven);
 
         const filteredData = firstSeven.map((element, index) => {
-            console.log(element.price_change_percentage_24h);
+            // console.log(element.price_change_percentage_24h);
             return (
                 <FinancialTicker
                     id={index}

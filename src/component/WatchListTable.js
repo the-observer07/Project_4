@@ -29,45 +29,31 @@ const WatchListTable = () => {
     // const topTen = [];
     const coingeckoData = [];
     const dispatch = useDispatch();
+    const user = useSelector((state) => state.user);
+    // console.log(user);
 
     const callForWatchlist = async () => {
         // console.log(watchlist);
-        const res = await backendAPIs.callWatchlistData();
-        recalledData = res.data.getWatch;
-        console.log(recalledData);
+        const body = { username: user.username };
+        // console.log(body);
+        const res = await backendAPIs.callWatchlistData(body);
+        // console.log(res);
+        recalledData = res.data.getWatch.watchlist;
+        // console.log(recalledData);
 
         for await (let element of recalledData) {
-            console.log(element.token);
-            const response = await axios.get(singleToken(element.token));
-            console.log("hello");
+            // console.log(element);
+            const response = await axios.get(singleToken(element));
+            // console.log("hello");
             coingeckoData.push(response.data);
-            console.log(coingeckoData);
+            // console.log(coingeckoData);
         }
 
-        // const outsideApi = () => {
-        //     recalledData.map(async (element) => {
-        //         console.log(element.token);
-        //         const response = await axios.get(singleToken(element.token));
-        //         console.log("hello");
-        //         coingeckoData.push(response.data);
-        //         console.log(coingeckoData);
-        //         setWatchlistData(coingeckoData);
-        //         console.log(watchlistData);
-        //         // return { element, response };
-        //         // return `${index} ${element.token}`; // logging object Object
-        //     });
-
         setWatchlistData(coingeckoData);
-        console.log(watchlistData);
-
-        // const stringData = mappedData.toString();
-        // console.log(stringData);
-
-        // const response = await axios.get(singleToken(mappedData));
-        // console.log(response);
+        // console.log(watchlistData);
     };
 
-    console.log(watchlistData);
+    // console.log(watchlistData);
 
     // const getString = mappedData.map ((element, index) => {
     //     const coingeckoRes = await axios.get(singleToken(getString));
@@ -89,11 +75,20 @@ const WatchListTable = () => {
     }, [watchlist]);
 
     const handleDelete = async (e) => {
-        const token = e.currentTarget.value;
-        console.log(token);
-        dispatch(watchlistActions.setDelete(true));
-        const res = await backendAPIs.removeWatchlist(token);
-        dispatch(watchlistActions.setDelete(false));
+        // const body = { username: user.username };
+        e.preventDefault();
+        const body = { username: user.username, token: e.currentTarget.value };
+        // console.log(body);
+        console.log("TRYING TO PRINTTTTT");
+        dispatch(watchlistActions.setDelete()); // not setting
+        // dispatch(watchlistActions.setToken(body.token)); // not setting
+        console.log(watchlist);
+        const res = await backendAPIs.removeWatchlist(body);
+        // console.log(res);
+        dispatch(watchlistActions.setDefault());
+        console.log(watchlist);
+
+        // dispatch(watchlistActions.setToken(""));
         // dispatch(portfolioActions.setDeleteMode(true));
         // dispatch(portfolioActions.setDelete(true));
         // dispatch(portfolioActions.handleReset());

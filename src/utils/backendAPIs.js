@@ -27,8 +27,8 @@ const logout = async () => {
     return res;
 };
 
-const createNewUser = async () => {
-    const res = await axios.post(localHost + "/users/newuser");
+const createNewUser = async (body) => {
+    const res = await axios.post(localHost + "/users/newuser", body);
     return res;
 };
 
@@ -85,22 +85,24 @@ const pullPortfolio = async () => {
 //
 
 const addWatchlist = async (body) => {
-    const res = await axios.post(localHost + "/users/watchlist/newwatch", {
-        token: body,
-    });
+    console.log(body);
+    const res = await axios.post(localHost + "/users/watchlist/newwatch", body);
     return res;
 };
 
-const callWatchlistData = async () => {
-    const res = await axios.get(localHost + "/watchlist/getwatch");
+const callWatchlistData = async (body) => {
+    console.log(body);
+    const res = await axios.post(localHost + "/users/watchlist/getwatch", body);
     return res;
 };
 
 const removeWatchlist = async (body) => {
     console.log(body);
-    const res = await axios.post(localHost + "/watchlist/removewatch", {
-        token: body,
-    });
+    const res = await axios.post(
+        localHost + "/users/watchlist/removewatch",
+        body
+    );
+    console.log(res);
     return res;
 };
 
