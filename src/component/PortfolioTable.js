@@ -113,120 +113,140 @@ const PortfolioTable = () => {
             {/* {JSON.stringify(tokens)} */}
             <div className="int-container">
                 <div className="holder">
-                    <br />
-                    <h2 className="header">Portfolio</h2>
-                    <br />
-                    <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 350 }} aria-label="simple table">
-                            <Typography
-                                variant="h4"
-                                style={{ margin: 18, fontFamily: "Roboto" }}
-                            ></Typography>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell
-                                        align="center"
-                                        sx={{ width: 100 }}
-                                    >
-                                        Token
-                                    </TableCell>
-                                    <TableCell
-                                        align="center"
-                                        sx={{ width: 100 }}
-                                    >
-                                        Chart
-                                    </TableCell>
-                                    <TableCell
-                                        align="center"
-                                        sx={{ width: 150 }}
-                                    >
-                                        Price
-                                    </TableCell>
-                                    <TableCell
-                                        align="center"
-                                        sx={{ width: 120 }}
-                                    >
-                                        Quantity
-                                    </TableCell>
-                                    <TableCell
-                                        align="center"
-                                        sx={{ width: 100 }}
-                                    >
-                                        Current Price
-                                    </TableCell>
-                                    <TableCell></TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {portfolio.map((portfolio) => (
-                                    <TableRow
-                                        key={portfolio.name}
-                                        sx={{
-                                            "&:last-child td, &:last-child th":
-                                                {
-                                                    border: 0,
-                                                },
-                                        }}
-                                    >
+                    <Typography variant="h1" align="center" sx={{ margin: 2 }}>
+                        PORTFOLIO
+                    </Typography>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "space-around",
+                            p: 1,
+                            m: 1,
+                            // bgcolor: "background.paper",
+                            borderRadius: 1,
+                        }}
+                    >
+                        <TableContainer
+                            component={Paper}
+                            sx={{ maxWidth: 750 }}
+                        >
+                            <Table
+                                sx={{ minWidth: 350 }}
+                                aria-label="simple table"
+                            >
+                                <Typography
+                                    variant="h4"
+                                    style={{ margin: 18, fontFamily: "Roboto" }}
+                                ></Typography>
+                                <TableHead>
+                                    <TableRow>
                                         <TableCell
-                                            component="th"
-                                            scope="row"
                                             align="center"
+                                            sx={{ width: 100 }}
                                         >
-                                            {portfolio.token}
+                                            Token
                                         </TableCell>
-                                        <TableCell></TableCell>
+                                        {/* <TableCell
+                                            align="center"
+                                            sx={{ width: 100 }}
+                                        >
+                                            Chart
+                                        </TableCell> */}
                                         <TableCell
                                             align="center"
                                             sx={{ width: 150 }}
                                         >
-                                            {`$ ${parseFloat(
-                                                portfolio.price
-                                            ).toFixed(2)}`}
+                                            Price
                                         </TableCell>
                                         <TableCell
                                             align="center"
                                             sx={{ width: 120 }}
                                         >
-                                            {portfolio.quantity.toLocaleString(
-                                                "en-US"
-                                            )}
+                                            Quantity
                                         </TableCell>
                                         <TableCell
                                             align="center"
                                             sx={{ width: 100 }}
-                                        ></TableCell>
-                                        <TableCell sx={{ width: 50 }}>
-                                            <IconButton
-                                                value={portfolio.token}
-                                                color="primary"
-                                                aria-label="Edit button"
-                                                sx={{
-                                                    height: 30,
-                                                    width: 30,
-                                                }}
-                                                onClick={handleEdit}
-                                            >
-                                                <EditIcon />
-                                            </IconButton>
-                                            <IconButton
-                                                value={portfolio.token}
-                                                color="primary"
-                                                aria-label="Del button"
-                                                sx={{
-                                                    height: 30,
-                                                    width: 30,
-                                                }}
-                                                onClick={handleDelete}
-                                            >
-                                                <DeleteIcon />
-                                            </IconButton>
+                                        >
+                                            Current Price
                                         </TableCell>
+                                        <TableCell
+                                            align="center"
+                                            sx={{ width: 70 }}
+                                        ></TableCell>
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                                </TableHead>
+                                <TableBody>
+                                    {portfolio.map((portfolio) => (
+                                        <TableRow
+                                            key={portfolio.name}
+                                            sx={{
+                                                "&:last-child td, &:last-child th":
+                                                    {
+                                                        border: 0,
+                                                    },
+                                            }}
+                                        >
+                                            <TableCell
+                                                component="th"
+                                                scope="row"
+                                                align="center"
+                                            >
+                                                {portfolio.token}
+                                            </TableCell>
+                                            {/* <TableCell></TableCell> */}
+                                            <TableCell
+                                                align="center"
+                                                sx={{ width: 150 }}
+                                            >
+                                                {`$ ${parseFloat(
+                                                    portfolio.price
+                                                ).toFixed(2)}`}
+                                            </TableCell>
+                                            <TableCell
+                                                align="center"
+                                                sx={{ width: 120 }}
+                                            >
+                                                {portfolio.quantity.toLocaleString(
+                                                    "en-US"
+                                                )}
+                                            </TableCell>
+                                            <TableCell
+                                                align="center"
+                                                sx={{ width: 100 }}
+                                            ></TableCell>
+                                            <TableCell sx={{ width: 50 }}>
+                                                <IconButton
+                                                    value={portfolio.token}
+                                                    color="primary"
+                                                    aria-label="Edit button"
+                                                    sx={{
+                                                        height: 30,
+                                                        width: 30,
+                                                    }}
+                                                    onClick={handleEdit}
+                                                >
+                                                    <EditIcon />
+                                                </IconButton>
+                                                <IconButton
+                                                    value={portfolio.token}
+                                                    color="primary"
+                                                    aria-label="Del button"
+                                                    sx={{
+                                                        height: 30,
+                                                        width: 30,
+                                                    }}
+                                                    onClick={handleDelete}
+                                                >
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </Box>
                 </div>
             </div>
         </div>

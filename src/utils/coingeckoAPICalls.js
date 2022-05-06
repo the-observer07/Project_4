@@ -4,7 +4,7 @@ export const tokenList = () =>
 export const singleToken = (id) =>
     `https://api.coingecko.com/api/v3/coins/${id}`;
 
-export const chart = (id, days = 365) =>
+export const chart = (id) =>
     `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=7`;
 
 export const trending = () =>

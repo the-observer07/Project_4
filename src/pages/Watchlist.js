@@ -29,6 +29,9 @@ const Watchlist = () => {
         <>
             <ResponsiveAppBar />
             <br />
+            <br />
+            <br />
+            <br />
             <WatchListTable />
         </>
     );

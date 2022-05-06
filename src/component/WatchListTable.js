@@ -103,106 +103,137 @@ const WatchListTable = () => {
     return (
         <div className="container">
             <div className="holder">
-                <h1 className="header">Watchlist</h1>
+                <Typography variant="h1" align="center" sx={{ margin: 2 }}>
+                    WATCHLIST
+                </Typography>
                 {loading === true ? (
-                    <Container align="center">
-                        <Box>
+                    <Container
+                        // justifyItems="bottom"
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <Box margin={10}>
                             <Loading />
                         </Box>
                     </Container>
                 ) : (
-                    <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 350 }} aria-label="simple table">
-                            <Typography
-                                variant="h4"
-                                style={{ margin: 18, fontFamily: "Roboto" }}
-                            ></Typography>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell></TableCell>
-                                    <TableCell>Token</TableCell>
-                                    <TableCell align="center">Price</TableCell>
-                                    <TableCell align="center">
-                                        Market Cap
-                                    </TableCell>
-                                    <TableCell align="center">
-                                        % Change
-                                    </TableCell>
-                                    <TableCell></TableCell>
-                                </TableRow>
-                            </TableHead>
-
-                            <TableBody>
-                                {/* {JSON.stringify(watchlistData[1].id)} */}
-                                {watchlistData.map((token) => (
-                                    <TableRow
-                                        key={token.name}
-                                        sx={{
-                                            "&:last-child td, &:last-child th":
-                                                {
-                                                    border: 0,
-                                                },
-                                        }}
-                                    >
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "space-around",
+                            p: 1,
+                            m: 1,
+                            // bgcolor: "background.paper",
+                            borderRadius: 1,
+                        }}
+                    >
+                        <TableContainer
+                            component={Paper}
+                            sx={{ maxWidth: 750 }}
+                        >
+                            <Table
+                                sx={{ minWidth: 350 }}
+                                aria-label="simple table"
+                            >
+                                <Typography
+                                    variant="h4"
+                                    style={{ margin: 18, fontFamily: "Roboto" }}
+                                ></Typography>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell></TableCell>
+                                        <TableCell>Token</TableCell>
                                         <TableCell align="center">
-                                            <Box
-                                                component="img"
-                                                sx={{
-                                                    height: 25,
-                                                    width: 25,
-                                                    maxHeight: {
-                                                        xs: 233,
-                                                        md: 167,
-                                                    },
-                                                    maxWidth: {
-                                                        xs: 350,
-                                                        md: 250,
-                                                    },
-                                                }}
-                                                alt=""
-                                                src={`${token.image.small}`}
-                                            />
-                                        </TableCell>
-                                        <TableCell component="th" scope="row">
-                                            {token.name}
+                                            Price
                                         </TableCell>
                                         <TableCell align="center">
-                                            {`$ ${parseFloat(
-                                                token.market_data.current_price
-                                                    .usd
-                                            ).toLocaleString("en-US")}`}
+                                            Market Cap
                                         </TableCell>
                                         <TableCell align="center">
-                                            {`$ ${parseFloat(
-                                                token.market_data.market_cap.usd
-                                            ).toLocaleString("en-US")}`}
+                                            % Change
                                         </TableCell>
-                                        <TableCell align="center">
-                                            {` ${parseFloat(
-                                                token.market_data
-                                                    .price_change_percentage_24h
-                                            ).toFixed(2)}`}
-                                        </TableCell>
-
-                                        <TableCell align="center">
-                                            <IconButton
-                                                value={token.id}
-                                                color="primary"
-                                                aria-label="add to shopping cart"
-                                                sx={{
-                                                    height: 30,
-                                                    width: 30,
-                                                }}
-                                                onClick={handleDelete}
-                                            >
-                                                <DeleteIcon />
-                                            </IconButton>
-                                        </TableCell>
+                                        <TableCell></TableCell>
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                                </TableHead>
+
+                                <TableBody>
+                                    {/* {JSON.stringify(watchlistData[1].id)} */}
+                                    {watchlistData.map((token) => (
+                                        <TableRow
+                                            key={token.name}
+                                            sx={{
+                                                "&:last-child td, &:last-child th":
+                                                    {
+                                                        border: 0,
+                                                    },
+                                            }}
+                                        >
+                                            <TableCell align="center">
+                                                <Box
+                                                    component="img"
+                                                    sx={{
+                                                        height: 25,
+                                                        width: 25,
+                                                        maxHeight: {
+                                                            xs: 233,
+                                                            md: 167,
+                                                        },
+                                                        maxWidth: {
+                                                            xs: 350,
+                                                            md: 250,
+                                                        },
+                                                    }}
+                                                    alt=""
+                                                    src={`${token.image.small}`}
+                                                />
+                                            </TableCell>
+                                            <TableCell
+                                                component="th"
+                                                scope="row"
+                                            >
+                                                {token.name}
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                {`$ ${parseFloat(
+                                                    token.market_data
+                                                        .current_price.usd
+                                                ).toLocaleString("en-US")}`}
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                {`$ ${parseFloat(
+                                                    token.market_data.market_cap
+                                                        .usd
+                                                ).toLocaleString("en-US")}`}
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                {` ${parseFloat(
+                                                    token.market_data
+                                                        .price_change_percentage_24h
+                                                ).toFixed(2)}`}
+                                            </TableCell>
+
+                                            <TableCell align="center">
+                                                <IconButton
+                                                    value={token.id}
+                                                    color="primary"
+                                                    aria-label="add to shopping cart"
+                                                    sx={{
+                                                        height: 30,
+                                                        width: 30,
+                                                    }}
+                                                    onClick={handleDelete}
+                                                >
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </Box>
                 )}
             </div>
         </div>

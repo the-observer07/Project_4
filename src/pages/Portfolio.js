@@ -31,9 +31,16 @@ const Portfolio = () => {
     return (
         <div>
             <ResponsiveAppBar />
+            <br />
+            <br />
+            <br />
 
             <div className="container">
                 <PortfolioForm />
+                <br />
+                <br />
+                <br />
+
                 <PortfolioTable />
             </div>
         </div>

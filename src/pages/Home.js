@@ -5,6 +5,7 @@ import { AppBar, Container, Toolbar, Typography } from "@mui/material";
 // import { useNavigate } from "react-router-dom";
 import ResponsiveAppBar from "../component/ResponsiveAppBar";
 import Table from "../component/Table";
+import MainLineChart from "../component/charts/MainLineChart";
 
 const Home = () => {
     return (
@@ -12,10 +13,13 @@ const Home = () => {
             <ResponsiveAppBar />
             <DataTicker />
             <br />
+            <br />
+            <br />
             <div className="container">
                 <Table />
             </div>
             <br />
+            {/* <MainLineChart /> */}
             <br />
             <br />
             <br />

@@ -13,10 +13,11 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { useState, useEffect } from "react";
 import LogInButton from "../component/LogInButton";
-import SignUpButton from "../component/SignUpButton";
-import { Link } from "react-router-dom";
+import SignUpButton from "./unused/SignUpButton";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import userSlice, { userActions } from "../redux/user";
+import logo from "../cryptowhale.png";
 
 const pages = ["Home", "Watchlist", "Portfolio"];
 const settings = ["Profile", "Preferences", "Logout"];
@@ -27,8 +28,16 @@ const ResponsiveAppBar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
+    //===========================================================================
+
+    // REDUX //
+
+    const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
-    // console.log(user.login.auth);
+
+    //===========================================================================
+
+    const navigate = useNavigate();
 
     const status = () => {
         setLoggedIn(user.auth);
@@ -53,7 +62,10 @@ const ResponsiveAppBar = () => {
 
     const handleLogIn = () => {};
 
-    const handleLogout = () => {};
+    const handleLogout = () => {
+        dispatch(userActions.logout());
+        navigate("/home");
+    };
 
     useEffect(() => {
         status();
@@ -63,15 +75,21 @@ const ResponsiveAppBar = () => {
         <AppBar position="static" sx={{ bgcolor: "#16181f" }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-                    >
-                        LOGO
-                    </Typography>
-
+                    <Box>
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{
+                                mr: 2,
+                                width: 60,
+                                height: 60,
+                                display: { xs: "none", md: "flex" },
+                            }}
+                        >
+                            <img src={logo} />
+                        </Typography>
+                    </Box>
                     <Box
                         sx={{
                             flexGrow: 1,
