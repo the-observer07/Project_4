@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Component } from "react";
 import Ticker, { FinancialTicker, NewsTicker } from "nice-react-ticker";
+import "../index.css";
 
 const DataTicker = () => {
     const [cryptoData, setCryptoData] = useState([]);
@@ -26,7 +27,7 @@ const DataTicker = () => {
         // console.log(rawData);
         // let sevenData = rawData.tickers;
         // console.log(sevenData);
-        const firstSeven = rawData.filter((element, index) => index < 12);
+        const firstSeven = rawData.filter((element, index) => index < 10);
         // console.log(firstSeven);
 
         const filteredData = firstSeven.map((element, index) => {
@@ -71,7 +72,9 @@ const DataTicker = () => {
 
     return (
         <div>
-            <Ticker className="tickerItemFinancial">{cryptoData}</Ticker>
+            <Ticker className="tickerItemFinancial" sx={{ display: "flex" }}>
+                {cryptoData}
+            </Ticker>
             <div className="newsticker">
                 <Ticker isNewsTicker={true}>{newsData}</Ticker>
             </div>

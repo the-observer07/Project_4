@@ -68,7 +68,7 @@ export default function HelperTextMisaligned() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(portfolioActions.setSubmit());
+        dispatch(portfolioActions.setSubmit);
         setLoading(true);
 
         const data = {
@@ -146,9 +146,10 @@ export default function HelperTextMisaligned() {
 
     return (
         <Box
+            className="form"
             sx={{
-                bgcolor: "primary.main",
                 display: "flex",
+                justifyContent: "space-evenly",
                 alignItems: "center",
                 "& > :not(style)": { m: 1 },
             }}
@@ -160,11 +161,10 @@ export default function HelperTextMisaligned() {
                         helperText="Please enter your token"
                         id="demo-helper-text-misaligned"
                         label="Token"
-                        variant="filled"
-                        color=""
+                        variant="standard"
+                        color="primary"
                         focused
                         type="String"
-                        // onChange={handleEditIdChange}
                         sx={{ margin: 1.5 }}
                         name="id"
                     />
@@ -173,8 +173,8 @@ export default function HelperTextMisaligned() {
                         helperText="Please enter your purchase price"
                         id="demo-helper-text-misaligned-no-helper"
                         label="Price"
-                        variant="filled"
-                        color=""
+                        variant="standard"
+                        color="primary"
                         focused
                         type="Number"
                         onChange={handleEditPriceChange}
@@ -186,8 +186,8 @@ export default function HelperTextMisaligned() {
                         helperText="Please enter your purchase quantity"
                         id="demo-helper-text-misaligned-no-helper"
                         label="Qty"
-                        variant="filled"
-                        color=""
+                        variant="standard"
+                        color="primary"
                         focused
                         type="Number"
                         onChange={handleEditQtyChange}
@@ -202,8 +202,8 @@ export default function HelperTextMisaligned() {
                         helperText="Please enter your token"
                         id="demo-helper-text-misaligned"
                         label="Token"
-                        variant="filled"
-                        color=""
+                        variant="standard"
+                        color="primary"
                         focused
                         type="String"
                         onChange={handleIdChange}
@@ -215,8 +215,8 @@ export default function HelperTextMisaligned() {
                         helperText="Please enter your purchase price"
                         id="demo-helper-text-misaligned-no-helper"
                         label="Price"
-                        variant="filled"
-                        color=""
+                        variant="standard"
+                        color="primary"
                         focused
                         type="Number"
                         onChange={handlePriceChange}
@@ -228,8 +228,8 @@ export default function HelperTextMisaligned() {
                         helperText="Please enter your purchase quantity"
                         id="demo-helper-text-misaligned-no-helper"
                         label="Qty"
-                        variant="filled"
-                        color=""
+                        variant="standard"
+                        color="primary"
                         focused
                         type="Number"
                         onChange={handleQtyChange}

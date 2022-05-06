@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../redux/user";
 import backendAPIs from "../utils/backendAPIs";
 import { useNavigate } from "react-router-dom";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
 const SignUp = () => {
     const user = useSelector((state) => state.user);
@@ -15,6 +17,8 @@ const SignUp = () => {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState("");
+    const [viewPassword, setViewPassword] = useState(false);
+    // const [iconChange, setIconChange] = useState(false);
 
     const handleNameChange = (event) => {
         setName(event.target.value);
@@ -26,6 +30,14 @@ const SignUp = () => {
 
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
+    };
+
+    const handleMouseDownPassword = () => {
+        setViewPassword(true);
+    };
+
+    const handleMouseUpPassword = () => {
+        setViewPassword(false);
     };
 
     const handleSubmit = async () => {
@@ -42,36 +54,60 @@ const SignUp = () => {
         } else {
             setErrorMessage(res.data.message);
         }
-
-        // if (res.json("status: ok")) {
-        //     navigate("/home");
-        // }
     };
     return (
         <>
-            <Container>
-                <Box sx={{ color: "white" }}>
+            <Container className="parent" maxWidth="sm">
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="stretch"
+                    margin={5}
+                    sx={{ alignContent: "flex-end" }}
+                >
                     <TextField
+                        color="secondary"
+                        variant="standard"
                         helperText="Please enter your name"
                         id="Name"
                         label="Name"
                         onChange={handleNameChange}
                     />
                     <TextField
+                        color="secondary"
+                        variant="standard"
                         helperText="Please enter your username"
                         id="Username"
                         label="Username"
                         onChange={handleUsernameChange}
                     />
-                    {errorMessage}
                     <TextField
+                        color="secondary"
+                        variant="standard"
                         helperText="Please enter a password"
                         id="Password"
                         label="Password"
-                        type="Password"
+                        type={viewPassword ? "text" : "password"}
                         // color="white"
                         onChange={handlePasswordChange}
                     />
+
+                    {viewPassword ? (
+                        <VisibilityIcon onMouseUp={handleMouseUpPassword} />
+                    ) : (
+                        <VisibilityOutlinedIcon
+                            onMouseDown={handleMouseDownPassword}
+                        />
+                    )}
+
+                    <br />
+                    {errorMessage}
+                    <br />
                     <Button variant="contained" onClick={handleSubmit}>
                         {" "}
                         Submit

@@ -4,8 +4,14 @@ const porfolioUrl = "/portfolio";
 const watchlistUrl = "/watchlist";
 const localHost = "http://127.0.0.1:5001";
 
+//=======================
+
+//      USER
+
+//=======================
+
 const login = async (body) => {
-    console.log(body);
+    // console.log(body);
     const res = await axios.post(localHost + "/users/login", body);
     return res;
 
@@ -39,10 +45,11 @@ const addUserNewPortfolio = async (body) => {
     return res;
 };
 
-//
-//PORTFOLIO
-//
+//=======================
 
+//      PORTFOLIO
+
+//=======================
 const addNewPortfolio = async (body) => {
     console.log(body);
     const res = await axios.post(localHost + "/users/portfolio/newentry", body);
@@ -84,9 +91,11 @@ const pullPortfolio = async (body) => {
     return res;
 };
 
-//
-//WATCHLIST
-//
+//=======================
+
+//      WATCHLIST
+
+//=======================
 
 const addWatchlist = async (body) => {
     console.log(body);
@@ -110,6 +119,18 @@ const removeWatchlist = async (body) => {
     return res;
 };
 
+//=======================
+
+//      EXTERNAL API
+
+//=======================
+
+const initialCall = async (body) => {
+    console.log(body);
+    const res = await axios.post(localHost + "/extAPI/initial", body);
+    return res;
+};
+
 const apiCalls = {
     login,
     logout,
@@ -125,6 +146,7 @@ const apiCalls = {
     addUserNewPortfolio,
     loginStatus,
     status,
+    initialCall,
 };
 
 export default apiCalls;
