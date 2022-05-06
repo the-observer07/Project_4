@@ -1,6 +1,6 @@
 <h1> PROJECT 4 <h1>
  
- Project 4 is a continuation from my project 2.
+<p> Project 4 is a continuation from my project 2.
  
  I used MERN stack to build the app.
  
@@ -11,3 +11,5 @@
  External API data is provided by Coingecko.
  
  Design UI was provided by MUI.
+ 
+ </p>
