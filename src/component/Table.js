@@ -111,9 +111,6 @@ const TableData = ({ setOpenModal }) => {
             {status === true ? (
                 <div className="int-container">
                     <div className="holder">
-                        {/* <h2 className="header">
-                        Cryptocurrency Tokens by Market Cap
-                    </h2> */}
                         <Typography
                             variant="h1"
                             align="center"
@@ -153,11 +150,7 @@ const TableData = ({ setOpenModal }) => {
                                     }}
                                 >
                                     <Table
-                                        // position="fixed"
-                                        // alignSelf="center"
-                                        sx={{
-                                            minWidth: 350,
-                                        }}
+                                        sx={{ minWidth: 350 }}
                                         aria-label="simple table"
                                     >
                                         <Typography
@@ -232,13 +225,6 @@ const TableData = ({ setOpenModal }) => {
                                                         ).toLocaleString(
                                                             "en-US"
                                                         )}`}
-                                                        {token.price_change_percentage_24h >
-                                                            0}
-                                                        ? (
-                                                        <ArrowDropUpRoundedIcon />
-                                                        ):(
-                                                        <ArrowDropDownRoundedIcon />
-                                                        )
                                                     </TableCell>
 
                                                     <TableCell
@@ -258,6 +244,18 @@ const TableData = ({ setOpenModal }) => {
                                                         {` ${parseFloat(
                                                             token.price_change_percentage_24h
                                                         ).toFixed(2)}`}
+                                                        {token.price_change_percentage_24h >
+                                                        0 ? (
+                                                            <ArrowDropUpRoundedIcon
+                                                                color="success"
+                                                                fontSize="large"
+                                                            />
+                                                        ) : (
+                                                            <ArrowDropDownRoundedIcon
+                                                                color="error"
+                                                                fontSize="large"
+                                                            />
+                                                        )}
                                                     </TableCell>
 
                                                     <TableCell align="center">
@@ -298,127 +296,150 @@ const TableData = ({ setOpenModal }) => {
                         >
                             CRYPTO WHALE
                         </Typography>
-                        <TableContainer component={Paper} className="table">
-                            {loading === true ? (
-                                <Container
-                                    // justifyItems="bottom"
+                        {loading === true ? (
+                            <Container
+                                // justifyItems="bottom"
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                }}
+                            >
+                                <Box margin={10}>
+                                    <Loading />
+                                </Box>
+                            </Container>
+                        ) : (
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "space-around",
+                                    p: 1,
+                                    m: 1,
+                                    // bgcolor: "background.paper",
+                                    borderRadius: 1,
+                                }}
+                            >
+                                <TableContainer
+                                    component={Paper}
+                                    className="table"
                                     sx={{
-                                        display: "flex",
-                                        justifyContent: "center",
+                                        maxWidth: 750,
                                     }}
                                 >
-                                    <Box margin={10}>
-                                        <Loading />
-                                    </Box>
-                                </Container>
-                            ) : (
-                                <Table
-                                    sx={{ minWidth: 350 }}
-                                    aria-label="simple table"
-                                >
-                                    <Typography
-                                        variant="h4"
-                                        style={{
-                                            margin: 18,
-                                            fontFamily: "Roboto",
-                                        }}
-                                    ></Typography>
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell></TableCell>
-                                            <TableCell>Token</TableCell>
-                                            <TableCell align="center">
-                                                Price
-                                            </TableCell>
-                                            <TableCell align="center">
-                                                Market Cap
-                                            </TableCell>
-                                            <TableCell align="center">
-                                                % Change (24hr)
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableHead>
-
-                                    <TableBody>
-                                        {topTen.map((token) => (
-                                            <TableRow
-                                                key={token.name}
-                                                sx={{
-                                                    "&:last-child td, &:last-child th":
-                                                        {
-                                                            border: 0,
-                                                        },
-                                                }}
-                                            >
+                                    <Table
+                                        sx={{ minWidth: 350 }}
+                                        aria-label="simple table"
+                                    >
+                                        <Typography
+                                            variant="h4"
+                                            style={{
+                                                margin: 18,
+                                                fontFamily: "Roboto",
+                                            }}
+                                        ></Typography>
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell></TableCell>
+                                                <TableCell>Token</TableCell>
                                                 <TableCell align="center">
-                                                    <Box
-                                                        component="img"
-                                                        sx={{
-                                                            height: 25,
-                                                            width: 25,
-                                                            maxHeight: {
-                                                                xs: 233,
-                                                                md: 167,
-                                                            },
-                                                            maxWidth: {
-                                                                xs: 350,
-                                                                md: 250,
-                                                            },
-                                                        }}
-                                                        alt=""
-                                                        src={`${token.image}`}
-                                                    />
+                                                    Price
                                                 </TableCell>
-                                                <TableCell
-                                                    component="th"
-                                                    scope="row"
-                                                    onClick={handleTokenClick}
-                                                >
-                                                    {token.name}
+                                                <TableCell align="center">
+                                                    Market Cap
                                                 </TableCell>
-                                                <TableCell
-                                                    align="center"
-                                                    sx={{ width: 150 }}
-                                                >
-                                                    {`$ ${parseFloat(
-                                                        token.current_price
-                                                    ).toLocaleString("en-US")}`}
-                                                </TableCell>
-                                                <TableCell
-                                                    align="center"
-                                                    sx={{ width: 250 }}
-                                                >
-                                                    {`$ ${parseFloat(
-                                                        token.market_cap
-                                                    ).toLocaleString("en-US")}`}
-                                                </TableCell>
-                                                <TableCell
-                                                    align="center"
-                                                    sx={{ width: 200 }}
-                                                >
-                                                    {` ${parseFloat(
-                                                        token.price_change_percentage_24h
-                                                    ).toFixed(2)}`}
-
-                                                    {token.price_change_percentage_24h >
-                                                    0 ? (
-                                                        <ArrowDropUpRoundedIcon
-                                                            color="success"
-                                                            fontSize="large"
-                                                        />
-                                                    ) : (
-                                                        <ArrowDropDownRoundedIcon
-                                                            color="error"
-                                                            fontSize="large"
-                                                        />
-                                                    )}
+                                                <TableCell align="center">
+                                                    % Change (24hr)
                                                 </TableCell>
                                             </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                            )}
-                        </TableContainer>
+                                        </TableHead>
+
+                                        <TableBody>
+                                            {topTen.map((token) => (
+                                                <TableRow
+                                                    key={token.name}
+                                                    sx={{
+                                                        "&:last-child td, &:last-child th":
+                                                            {
+                                                                border: 0,
+                                                            },
+                                                    }}
+                                                >
+                                                    <TableCell align="center">
+                                                        <Box
+                                                            component="img"
+                                                            sx={{
+                                                                height: 25,
+                                                                width: 25,
+                                                                maxHeight: {
+                                                                    xs: 233,
+                                                                    md: 167,
+                                                                },
+                                                                maxWidth: {
+                                                                    xs: 350,
+                                                                    md: 250,
+                                                                },
+                                                            }}
+                                                            alt=""
+                                                            src={`${token.image}`}
+                                                        />
+                                                    </TableCell>
+                                                    <TableCell
+                                                        component="th"
+                                                        scope="row"
+                                                        onClick={
+                                                            handleTokenClick
+                                                        }
+                                                    >
+                                                        {token.name}
+                                                    </TableCell>
+                                                    <TableCell
+                                                        align="center"
+                                                        sx={{ width: 150 }}
+                                                    >
+                                                        {`$ ${parseFloat(
+                                                            token.current_price
+                                                        ).toLocaleString(
+                                                            "en-US"
+                                                        )}`}
+                                                    </TableCell>
+                                                    <TableCell
+                                                        align="center"
+                                                        sx={{ width: 250 }}
+                                                    >
+                                                        {`$ ${parseFloat(
+                                                            token.market_cap
+                                                        ).toLocaleString(
+                                                            "en-US"
+                                                        )}`}
+                                                    </TableCell>
+                                                    <TableCell
+                                                        align="center"
+                                                        sx={{ width: 200 }}
+                                                    >
+                                                        {` ${parseFloat(
+                                                            token.price_change_percentage_24h
+                                                        ).toFixed(2)}`}
+
+                                                        {token.price_change_percentage_24h >
+                                                        0 ? (
+                                                            <ArrowDropUpRoundedIcon
+                                                                color="success"
+                                                                fontSize="large"
+                                                            />
+                                                        ) : (
+                                                            <ArrowDropDownRoundedIcon
+                                                                color="error"
+                                                                fontSize="large"
+                                                            />
+                                                        )}
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                            </Box>
+                        )}
                     </div>
                 </div>
             )}

@@ -29,17 +29,6 @@ export default function HelperTextMisaligned() {
     const portfolio = useSelector((state) => state.portfolio);
     const user = useSelector((state) => state.user);
 
-    // const selector = useSelector((state) => state.portfolio);
-
-    // const checkEditMode = useSelector(portfolioSlice.editMode);
-    // console.log(checkEditMode);
-
-    // const [token, setToken] = useState("");
-    // const [price, setPrice] = useState("");
-    // const [qty, setQty] = useState("");
-
-    // const randomObj = { one: 1, two: 2, three: 3 };
-
     const initialValues = {
         id: "",
         price: "",
@@ -68,7 +57,7 @@ export default function HelperTextMisaligned() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(portfolioActions.setSubmit);
+        dispatch(portfolioActions.setSubmit());
         setLoading(true);
 
         const data = {

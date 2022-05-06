@@ -33,12 +33,9 @@ const Portfolio = () => {
             <ResponsiveAppBar />
             <br />
             <br />
-            <br />
 
             <div className="container">
                 <PortfolioForm />
-                <br />
-                <br />
                 <br />
 
                 <PortfolioTable />
