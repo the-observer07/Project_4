@@ -38,12 +38,16 @@ const TableData = ({ setOpenModal }) => {
     const [status, setStatus] = useState(false);
     const [loading, setLoading] = useState(false);
     const [extAPI, setExtAPI] = useState("");
+    // const [id, setId] = useState("");
     let navigate = useNavigate();
 
     // const [openModal, setOpenModal] = useState(false);
 
     const user = useSelector((state) => state.user);
+    // console.log(user);
     const portfolioRedux = useSelector((state) => state.portfolio);
+    const api = useSelector((state) => state.api);
+    // console.log(api);
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -101,9 +105,16 @@ const TableData = ({ setOpenModal }) => {
         }
     };
 
-    const handleTokenClick = () => {
-        setOpenModal(true);
+    const handleTokenClick = (event) => {
+        console.log(event.target.attributes[2].value);
+        //.target.attributes[2].value.nodeValue
+        dispatch(geckoAPIActions.setValue(event.target.attributes[2].value));
+        dispatch(geckoAPIActions.setClick());
+        console.log(event.target.attributes[2].value);
+        console.log(api);
     };
+
+    // console.log(api);
 
     return (
         <div>
@@ -384,10 +395,13 @@ const TableData = ({ setOpenModal }) => {
                                                         />
                                                     </TableCell>
                                                     <TableCell
+                                                        value={token.name}
                                                         component="th"
                                                         scope="row"
-                                                        onClick={
-                                                            handleTokenClick
+                                                        onClick={({ target }) =>
+                                                            console.log(
+                                                                target.textContent
+                                                            )
                                                         }
                                                     >
                                                         {token.name}
