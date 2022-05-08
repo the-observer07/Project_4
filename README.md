@@ -1,15 +1,15 @@
-<h1> PROJECT 4 <h1>
+# H1 PROJECT 4 
  
-<p> Project 4 is a continuation from my project 2.
+## Project 4 is a continuation from my project 2.
  
- I used MERN stack to build the app.
+### Tech Stack
+#### I used Mongo - Express - React - Node.js to produce this project 
+
+
+Changes made to the project was to remove the currency and commodity api/data.
+This project is fully based around Crypto.
+External API data is provided by Coingecko.
+Design UI was provided by MUI.
  
- Changes made to the project was to remove the currency and commodity api/data.
  
- This project is fully based around Crypto.
- 
- External API data is provided by Coingecko.
- 
- Design UI was provided by MUI.
- 
- </p>
+
