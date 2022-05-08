@@ -29,6 +29,7 @@ Towards the end of this project, I learnt a couple things that were essential to
 | User status                              | POST      |
 | User login status                        | POST      |
 | User logout                              | POST      |
+
 | Purpose (PORTFOLIO)                      | HTTP Verb |
 | ---------------------------------------- | --------- |
 | Add new portfolio data                   | POST      |
@@ -36,11 +37,13 @@ Towards the end of this project, I learnt a couple things that were essential to
 | Update to portfolio                      | POST      |
 | Delete from portfolio                    | POST      |
 | Display portfolio data                   | POST      |
+
 | Purpose (WATCHLIST)                      | HTTP Verb |
 | ---------------------------------------- | --------- |
 | Add to watchlist                         | POST      |
 | Display watchlist                        | POST      |
 | Remove from watchlist                    | POST      |
+
 | Purpose (EXTERNAL API)                   | HTTP Verb |
 | ---------------------------------------- | --------- |
 | Remove from watchlist                    | POST      |
