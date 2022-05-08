@@ -8,7 +8,7 @@
 
 Changes made to the project was to remove the currency and commodity api/data.
 This project is fully based around Crypto.
-External API data is provided by Coingecko.
+External API data is provided by [Coingecko](https://www.coingecko.com/en/api/documentation).
 Design UI was provided by MUI.
  
  
