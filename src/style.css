@@ -37,3 +37,31 @@
     border: 1px solid #999;
     font-size: 20px;
 }
+
+
+/* //// HOME PAGE //// */
+
+.tableContainer {
+    margin-top:20px;
+    margin-left:1%;
+    margin-right:1%;
+    margin-bottom:50px;
+    
+    
+   
+}
+
+
+ @media (max-width: 320px) {
+    .tableContainer {
+        margin-left: 1%;
+        margin-right: 1%;
+    }
+    }
+
+    @media screen and (min-width:1000px){
+        .tableContainer {
+        margin-left: 15%;
+        margin-right: 15%
+        }
+}

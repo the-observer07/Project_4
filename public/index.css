@@ -1,0 +1,244 @@
+@import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap");
+@import "react-widgets/styles.css";
+@import url("https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&display=swap");
+
+#root {
+    position: absolute;
+    width: 380px;
+    left: 0;
+
+}
+
+.container{
+    position:absolute;
+    width: 100%;
+    left: 0;
+
+
+}
+
+.result {
+    color: white;
+}
+.loginContainer {
+    color: white;
+}
+
+header {
+    width: 55%;
+    /* background-color: rgba(255, 255, 255, 0.3); */
+    /* border: 7px solid #ffffff; */
+    /* text-align: center; */
+    font-family: "Roboto", sans-serif;
+    font-weight: 900;
+    color: rgb(255, 191, 0);
+}
+
+.table {
+    font-family: "Roboto";
+    font-weight: 400;
+}
+
+.value {
+    color: white;
+    /* padding: 10px; */
+    /* padding-left: 10px; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* position: absolute; */
+    /* margin: -50px 0 0 -100px; */
+    /* position: absolute; */
+    text-align: left;
+    /* top: 50%; */
+}
+
+.ext {
+    opacity: 50%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: "Oxygen", sans-serif;
+}
+
+body {
+    /* margin: 0; */
+    background-color: rgb(22, 25, 35);
+    /* background-image: ;
+  background-size: cover;
+  background-position: center;
+  background-position: top; */
+    /* position: absolute; */
+    /* opacity: 0.5; */
+    /* background-repeat: no-repeat; */
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+body::after {
+    content: "";
+    background: url("https://i.redd.it/o1ij4fst96m51.jpg");
+    background-size: cover;
+    background-position: center;
+    background-position: top;
+    opacity: 0.3;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
+.header {
+    color: aliceblue;
+    text-align: center;
+    /* width: 100%; */
+}
+
+.holder {
+    background-color: rgb(22, 25, 35);
+    padding: 5px;
+    border: 7px solid #ffffff;
+    border-radius: 1em;
+    font-family: "Roboto", sans-serif;
+    font-weight: 900;
+    color: rgb(255, 191, 0);
+    
+
+}
+
+.form {
+    background-color: rgba(255, 191, 0, 1);
+    border-radius: 1em;
+    border: 7px solid #ffffff;
+}
+
+.data {
+    color: aliceblue;
+}
+
+.centered {
+    margin: 3rem auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.newsticker {
+    position:fixed;
+    bottom: 0;
+    width: 100%;
+    
+}
+
+.parent {
+    background-color: rgba(83, 94, 133, 1);
+    height: 100%;
+    width: 25%;
+    /* max-width: ; */
+    /* margin-left: -1000px; */
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    position: absolute;
+    /* align-self: center; */
+    /* align-items: center; */
+    /* left: center; */
+    /* position-top: 5; */
+    /* justify-content: space-evenly; */
+}
+
+.child-one {
+    /* position: absolute; */
+    /* flex-direction: column; */
+    margin: 50px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.child-two {
+    /* position: absolute; */
+    /* flex-direction: column; */
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.button-one {
+    padding: 50px;
+    /* position: absolute; */
+}
+.button-two {
+    padding: 50px;
+    /* position: absolute; */
+}
+
+
+@media screen and (max-width: 500px) {
+
+    header {
+    width: 55%;
+    /* background-color: rgba(255, 255, 255, 0.3); */
+    /* border: 7px solid #ffffff; */
+    /* text-align: center; */
+    font-family: "Roboto", sans-serif;
+    font-weight: 150;
+    color: rgb(255, 191, 0);
+}
+
+
+.holder {
+    background-color: rgb(22, 25, 35);
+    padding: 5px;
+    border: 7px solid #ffffff;
+    border-radius: 1em;
+    font-family: "Roboto", sans-serif;
+    font-weight: 120;
+    color: rgb(255, 191, 0);
+    font-size: 4rem;
+    
+
+}
+
+.tableContainer {
+    margin-top:50px;
+    margin-left:1px;
+    margin-right:1px;
+    margin-bottom: 50px;
+
+
+}
+
+.int-container {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 50px;
+
+}
+ 
+}
+
+@media (max-width: 768px) {
+
+}
+
+@media (max-width: 1024px) {
+
+}
+
+@media (max-width: 1200px) {
+
+}

@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { tokenList } from "../utils/coingeckoAPICalls";
 import { useState, useEffect } from "react";
+import {Helmet} from "react-helmet";
 import {
     Table,
     TableBody,
@@ -15,20 +16,29 @@ import {
     Box,
     Typography,
     IconButton,
+    ThemeProvider,
+    createTheme,
 } from "@mui/material";
+import { styled } from "@mui/material/styles";
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import "../fonts.css";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import watchlistSlice, { watchlistActions } from "../redux/watchlistSlice";
+// import watchlistSlice, { watchlistActions } from "../redux/watchlistSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { singleToken, chart } from "../utils/coingeckoAPICalls";
+// import { singleToken, chart } from "../utils/coingeckoAPICalls";
 import backendAPIs from "../utils/backendAPIs";
-import userSlice, { userActions } from "../redux/user";
+// import userSlice, { userActions } from "../redux/user";
 import { useNavigate } from "react-router-dom";
 import Loading from "../component/Loading";
 import geckoAPISlice, { geckoAPIActions } from "../redux/coingeckoAPISlice";
-import Popup from "./Popup";
+// import Popup from "./Popup";
+import "../index.css";
+// import {Title} from '/src/styles/Container.styled'
+import { theme } from "../styles/styles";
+// import "./queries.css"
+// import { ,  } from "@material-ui/core/styles";
+
 
 const TableData = ({ setOpenModal }) => {
     const [tokens, setTokens] = useState([]);
@@ -76,6 +86,22 @@ const TableData = ({ setOpenModal }) => {
         }
     };
 
+    // const Responsive = styled('div')((theme)=>({
+    //     [theme.breakpoints.down('mobile')]: {
+    //      Typography:{
+    //         fontSize: "1.5rem"
+    //      }
+    //     },
+    //      [theme.breakpoints.down('tablet')]: {
+         
+    //     },
+    //      [theme.breakpoints.down('desktop')]: {
+         
+    //     }
+    // }));
+
+    
+
     /// MAYBE FOR FUTURE DEVELOPMENT //////////////////////////////////////
 
     // const callExternalAPI = async () => {
@@ -116,7 +142,30 @@ const TableData = ({ setOpenModal }) => {
 
     // console.log(api);
 
+    const breakpoints = {
+  values: {
+    xs: 0,
+    sm: 0, // Phone
+    md: 768, // Tablet/Laptop
+    lg: 1500, // Desktop
+    xl: 2000
+  }
+};
+
+const theme = createTheme({
+  breakpoints,
+  typography: {
+    h1: {
+      fontSize: "5rem",
+      [`@media screen and (max-width: ${breakpoints.values.lg}px)`]: {
+        fontSize: "3rem"
+      }
+    }
+  }
+});
+
     return (
+        <ThemeProvider theme={theme}>
         <div>
             {/* {openModal && <Popup closeModal={setOpenModal} />} */}
             {status === true ? (
@@ -129,6 +178,7 @@ const TableData = ({ setOpenModal }) => {
                         >
                             CRYPTO WHALE
                         </Typography>
+                    
 
                         {loading === true ? (
                             <Container
@@ -307,6 +357,7 @@ const TableData = ({ setOpenModal }) => {
                         >
                             CRYPTO WHALE
                         </Typography>
+                        
                         {loading === true ? (
                             <Container
                                 // justifyItems="bottom"
@@ -458,6 +509,7 @@ const TableData = ({ setOpenModal }) => {
                 </div>
             )}
         </div>
+        </ThemeProvider>
     );
 };
 

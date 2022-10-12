@@ -10,6 +10,9 @@ import Modal from "@mui/material/Modal";
 import geckoAPISlice, { geckoAPIActions } from "../redux/coingeckoAPISlice";
 import watchlistSlice, { watchlistActions } from "../redux/watchlistSlice";
 import { useSelector, useDispatch } from "react-redux";
+import "../style.css";
+import "../index.css"
+// import "../queries.css"
 
 const style = {
     position: "absolute",
@@ -23,6 +26,8 @@ const style = {
     p: 4,
 };
 
+
+
 const Home = () => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -34,7 +39,8 @@ const Home = () => {
 
     return (
         <>
-            <div>
+        <div>
+            <div id="container">
                 <Modal
                     open={open}
                     onClose={handleClose}
@@ -59,18 +65,13 @@ const Home = () => {
             <div>
                 <ResponsiveAppBar />
                 <DataTicker />
-                <br />
-                <br />
-                <br />
-                <div className="container">
+                <div className="tableContainer">
                     <Table />
                 </div>
-                <br />
                 {/* <MainLineChart /> */}
-                <br />
-                <br />
-                <br />
+             
                 {/* <WatchList /> */}
+            </div>
             </div>
         </>
     );
